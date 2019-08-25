@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovementController : MonoBehaviour
+public class PlayerMovementControllerISO : MonoBehaviour
 {
     private MasterInputSystem Controls;
-    public Vector2 Direction;
+    public Vector2 direction;
     private float speed = 0.1f;
     public Animator animator;
 
     private void Awake()
     {
         Controls = new MasterInputSystem();
-        Controls.Player.Movement.performed += Context => Direction = Context.ReadValue<Vector2>();
-        Controls.Player.Movement.canceled += Context => Direction = Vector2.zero;        
+        Controls.PlayerIsometric.Movement.performed += Context => direction = Context.ReadValue<Vector2>();
+        Controls.PlayerIsometric.Movement.canceled += Context => direction = Vector2.zero;        
     }
 
     private void OnEnable()
@@ -36,11 +36,11 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Vector2 Movement = Direction * speed;
+        Vector2 Movement = direction * speed * Time.deltaTime;
         animator.SetFloat("Horizontal", Movement.x);
         animator.SetFloat("Vertical", Movement.y);
         transform.Translate(Movement);
-        if (Direction == Vector2.zero)
+        if (direction == Vector2.zero)
         {
             animator.SetBool("IsMoving", false);
         }
