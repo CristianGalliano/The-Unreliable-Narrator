@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovementController : MonoBehaviour
 {
     private MasterInputSystem Controls;
-    private Vector2 Direction;
+    public Vector2 Direction;
     private float speed = 0.1f;
     public Animator animator;
 
