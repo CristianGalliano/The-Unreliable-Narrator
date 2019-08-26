@@ -28,6 +28,7 @@ public class PlayerMovementController : MonoBehaviour
             Destroy(this);
         }
         Physics2D.IgnoreLayerCollision(10, 11);
+
         Controls = new MasterInputSystem();
         Controls.Player.Movement.performed += Context => direction = Context.ReadValue<Vector2>();
         Controls.Player.Movement.canceled += Context => direction = Vector2.zero;
