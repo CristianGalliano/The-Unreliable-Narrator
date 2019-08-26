@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 860139857}
   - component: {fileID: 860139858}
   - component: {fileID: 860139856}
+  - component: {fileID: 860139860}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -367,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fe558de8b019b43a238a9a2e7e40ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: {x: 0, y: 0}
+  direction: {x: 0, y: 0}
   animator: {fileID: 860139856}
 --- !u!212 &860139858
 SpriteRenderer:
@@ -433,6 +434,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &860139860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860139855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3270fae745594bf4ebdc1c1f1c0d015d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 563964436279273396, guid: 4693fcfe697b8f64898209d3208173e3,
+    type: 3}
 --- !u!1 &1613223162
 GameObject:
   m_ObjectHideFlags: 0
