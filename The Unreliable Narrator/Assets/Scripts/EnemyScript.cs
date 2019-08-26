@@ -50,7 +50,7 @@ public class EnemyScript : MonoBehaviour
 
     void ChasePlayer()
     {
-        if(playerFound && Vector2.Distance(transform.position, player.transform.position) > 1.6f)
-          transform.position = Vector2.MoveTowards(transform.position, lastKnownPos, 0.025f);
+        if (playerFound && Vector2.Distance(transform.position, player.transform.position) > 1.6f)
+            transform.Translate((lastKnownPos - (Vector2)transform.position) * 1f * Time.deltaTime);
     }
 }
