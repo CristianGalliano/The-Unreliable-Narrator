@@ -12,6 +12,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Awake()
     {
+        Physics2D.IgnoreLayerCollision(10, 11);
         Controls = new MasterInputSystem();
         Controls.Player.Movement.performed += Context => direction = Context.ReadValue<Vector2>();
         Controls.Player.Movement.canceled += Context => direction = Vector2.zero;
@@ -25,12 +26,6 @@ public class PlayerMovementController : MonoBehaviour
     private void OnDisable()
     {
         Controls.Disable();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

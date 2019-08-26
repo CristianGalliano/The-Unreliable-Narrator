@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovementController))]
 public class PlayerWeaponController : MonoBehaviour
 {
     private MasterInputSystem Controls;
@@ -12,10 +11,20 @@ public class PlayerWeaponController : MonoBehaviour
     public GameObject bulletPrefab;
     private int weaponValue = 0;
 
+    private bool isShooting;
+    private float lastShot;
+    private float rateOfFire = 0.05f;
+
+    private float lastHit;
+    private float hitChargeTime = 0.05f;
+
     private void Awake()
     {
         Controls = new MasterInputSystem();
+        
         Controls.Player.Attack.performed += Context => Attack(weaponValue);
+        Controls.Player.Attack.canceled += Context => isShooting = false;
+
         Controls.Player.ChangeWeapon1.performed += Context => weaponValue = 0;
         Controls.Player.ChangeWeapon2.performed += Context => weaponValue = 1;
         Controls.Player.ChangeWeapon3.performed += Context => weaponValue = 2;
@@ -42,7 +51,7 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Shoot();
     }
 
     private void Attack(int Value)
@@ -58,7 +67,7 @@ public class PlayerWeaponController : MonoBehaviour
         }
         else if (weaponValue == 2)
         {
-            Shoot();
+            isShooting = true;
         }
     }
 
@@ -96,15 +105,27 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void Meleetwo()
     {
+        if (Time.time > lastHit + hitChargeTime)
+        {
+            //play animation
+            lastHit = Time.time;
+        }
 
     }
 
     private void Shoot()
     {
-        GameObject Bullet = Instantiate(bulletPrefab, gameObject.transform.position, Quaternion.identity);
-        Destroy(Bullet, 2.5f);
-        float rot_z = Mathf.Atan2(playerMovement.previousDirection.y, playerMovement.previousDirection.x) * Mathf.Rad2Deg;
-        Bullet.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-        Bullet.GetComponent<Rigidbody2D>().velocity = playerMovement.previousDirection * 25f;
+        if(isShooting && Time.time > lastShot + rateOfFire)
+        {
+            GameObject Bullet = Instantiate(bulletPrefab, gameObject.transform.position, Quaternion.identity);
+            Bullet.GetComponent<Rigidbody2D>().velocity = playerMovement.previousDirection * 25f;
+
+            float rot_z = Mathf.Atan2(playerMovement.previousDirection.y, playerMovement.previousDirection.x) * Mathf.Rad2Deg;
+            Bullet.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+            Destroy(Bullet, 2.5f);
+
+            lastShot = Time.time;
+        }
+
     }
 }
