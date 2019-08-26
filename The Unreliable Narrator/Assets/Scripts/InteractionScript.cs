@@ -16,9 +16,12 @@ public class InteractionScript : MonoBehaviour
 
     private bool interactionPressed = false;
 
+    public bool isTyping = false;
+    public bool interuptedTyping = false;
+    private float textSpeed = 0.025f;
+
     private void Awake()
     {
-        Physics2D.IgnoreLayerCollision(10, 11);
         Controls = new MasterInputSystem();
         Controls.Player.Interact.performed += Context => interactionPressed = true;
     }
@@ -33,8 +36,6 @@ public class InteractionScript : MonoBehaviour
         Controls.Disable();
     }
 
-
-
     // Update is called once per frame
     void Update()
     {
@@ -42,23 +43,37 @@ public class InteractionScript : MonoBehaviour
         {
             if (textBubbleActive == false)
             {
-                //Popup.transform.position = Vector2.Lerp(Popup.transform.position, playerHeadPosition.transform.position, Time.deltaTime);
                 Popup.gameObject.SetActive(true);
             }
             if (interactionPressed && textBubbleActive == false)
             {
-                Popup.gameObject.SetActive(false);
-                textBubbleActive = true;
-                TextBubble.gameObject.SetActive(true);
-                TextBubble.transform.position = HeadPosition.transform.position;
-                TextBubbleText.text = Text[textNumber];
-                interactionPressed = false;
+                if (!isTyping && !interuptedTyping)
+                {
+                    Popup.gameObject.SetActive(false);
+                    textBubbleActive = true;
+                    TextBubble.transform.position = HeadPosition.transform.position;
+                    TextBubble.gameObject.SetActive(true);
+                    StartCoroutine(textScroll(Text[textNumber]));
+                    interactionPressed = false;
+                    PlayerMovementController.PMC.canMove = false;
+                }
+                else if (isTyping && !interuptedTyping)
+                {
+                    interuptedTyping = true;
+                }
             }
             else if (interactionPressed && textBubbleActive == true && textNumber < Text.Length - 1)
             {
-                textNumber++;
-                TextBubbleText.text = Text[textNumber];
-                interactionPressed = false;
+                if (!isTyping && !interuptedTyping)
+                {
+                    textNumber++;
+                    interactionPressed = false;
+                    StartCoroutine(textScroll(Text[textNumber]));
+                }
+                else if (isTyping && !interuptedTyping)
+                {
+                    interuptedTyping = true;
+                }
             }
             else if(interactionPressed && textNumber +1 == Text.Length)
             {
@@ -67,9 +82,29 @@ public class InteractionScript : MonoBehaviour
                 TextBubble.gameObject.SetActive(false);
                 textNumber = 0;
                 interactionPressed = false;
+                PlayerMovementController.PMC.canMove = true;
             }
         }
     }
+
+    private IEnumerator textScroll(string Text)
+    {
+        int letter = 0;
+        TextBubbleText.text = "";
+        isTyping = true;
+        interuptedTyping = false;
+        while (isTyping && !interuptedTyping && letter < (Text.Length -1))
+        {
+            TextBubbleText.text += Text[letter];
+            letter++;
+            Debug.Log("returning");
+            yield return new WaitForSeconds(textSpeed);
+        }
+        TextBubbleText.text = Text;
+        isTyping = false;
+        interuptedTyping = false;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
