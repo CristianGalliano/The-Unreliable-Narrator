@@ -50,11 +50,11 @@ public class PlayerWeaponController : MonoBehaviour
         Debug.Log("Weapon " + weaponValue + " is being used!");
         if (weaponValue == 0)
         {
-
+            MeleeOne();
         }
         else if (weaponValue == 1)
         {
-
+            Meleetwo();
         }
         else if (weaponValue == 2)
         {
@@ -91,7 +91,7 @@ public class PlayerWeaponController : MonoBehaviour
     private void MeleeOne()
     {
         float rot_z = Mathf.Atan2(playerMovement.previousDirection.y, playerMovement.previousDirection.x) * Mathf.Rad2Deg;
-        Bullet.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+        meleeWeapon1.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
     }
 
     private void Meleetwo()
