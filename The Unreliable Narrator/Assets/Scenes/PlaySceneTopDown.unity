@@ -299,7 +299,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &583071814
 GameObject:
@@ -338,11 +338,25 @@ MonoBehaviour:
   HeadPosition: {fileID: 203191151}
   playerHeadPosition: {fileID: 928580177}
   Text:
-  - this is the first text.
-  - this is the second text.
-  - this is the third text.
-  - this is the fourth text.
-  - this is the fifth text.
+  - '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+    exercitation ullamco laboris nisi ut aliq'
+  - in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+    id est laborum."
+  - Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
+    quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+    quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+    eos qui ratione voluptatem
+  - dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+    exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+    consequatur? Quis autem v
+  - 'ut I must explain to you how all this mistaken idea of denouncing pleasure and
+    praising pain was born and I will give you a complete account of the system, and
+    expound the actual teachings of the great explorer of the truth, the master-builder
+    of human happiness. No one rejects, dislikes, or avoids pleasure itself, because
+    it is pleasure, but because '
 --- !u!58 &583071816
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -422,7 +436,7 @@ Transform:
   m_Children:
   - {fileID: 203191151}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698700513
 GameObject:
@@ -571,7 +585,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &928580176
 GameObject:
@@ -638,7 +652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1030}
+  m_AnchoredPosition: {x: 0, y: 1200}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1300465302
@@ -3557,7 +3571,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3580,12 +3594,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027077112}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 377563108}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2067636444
 GameObject:
@@ -3629,7 +3643,7 @@ Transform:
   m_Children:
   - {fileID: 1668513486}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2081897721
 GameObject:
@@ -3664,7 +3678,7 @@ RectTransform:
   - {fileID: 1957029779}
   - {fileID: 1300465301}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3781,7 +3795,7 @@ PrefabInstance:
     - target: {fileID: 620213376494791451, guid: a3390cb87e5c6aa42b6d1c0ef79a3af9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 620213376494791451, guid: a3390cb87e5c6aa42b6d1c0ef79a3af9,
         type: 3}
@@ -3865,7 +3879,7 @@ PrefabInstance:
     - target: {fileID: 1508955258451484330, guid: 084411fde9e52bd4a83001ab2dd95a32,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1508955258451484330, guid: 084411fde9e52bd4a83001ab2dd95a32,
         type: 3}
