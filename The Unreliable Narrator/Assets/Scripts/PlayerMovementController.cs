@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementControllerTopDown : MonoBehaviour
+[RequireComponent(typeof(PlayerWeaponController))]
+public class PlayerMovementController : MonoBehaviour
 {
     private MasterInputSystem Controls;
-    public Vector2 direction, mousePosition;
+    public Vector2 direction, previousDirection = Vector2.up;
     public Animator animator;
     private float speed = 5f;
 
     private void Awake()
     {
         Controls = new MasterInputSystem();
-        Controls.PlayerTopDown.Movement.performed += Context => direction = Context.ReadValue<Vector2>();
-        Controls.PlayerTopDown.Movement.canceled += Context => direction = Vector2.zero;
+        Controls.Player.Movement.performed += Context => direction = Context.ReadValue<Vector2>();
+        Controls.Player.Movement.canceled += Context => direction = Vector2.zero;
     }
 
     private void OnEnable()
@@ -37,9 +38,15 @@ public class PlayerMovementControllerTopDown : MonoBehaviour
     {
         direction = new Vector2(Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
         Vector2 Movement = direction * speed * Time.deltaTime;
+        transform.Translate(Movement);
+
+        if (direction != Vector2.zero && direction != null)
+        {
+            previousDirection = direction;
+        }
+
         //animator.SetFloat("Horizontal", Movement.x);
         //animator.SetFloat("Vertical", Movement.y);
-        transform.Translate(Movement);
         //if (direction == Vector2.zero)
         //{
         //    animator.SetBool("IsMoving", false);
