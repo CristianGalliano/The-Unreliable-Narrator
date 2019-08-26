@@ -42,7 +42,6 @@ public class InteractionScript : MonoBehaviour
         {
             if (textBubbleActive == false)
             {
-                //Popup.transform.position = Vector2.Lerp(Popup.transform.position, playerHeadPosition.transform.position, Time.deltaTime);
                 Popup.gameObject.SetActive(true);
             }
             if (interactionPressed && textBubbleActive == false)

@@ -25,7 +25,7 @@ public class PlayerProjectileScript : MonoBehaviour
 
         if(hit.tag == "Enemy")
         {
-            hit.GetComponent<EnemyScript>().TakeDamage(10);
+            hit.GetComponent<EnemyScript>().TakeDamage(100);
             Destroy(gameObject, 0.01f);
         }
     }

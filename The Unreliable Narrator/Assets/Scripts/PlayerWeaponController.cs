@@ -11,7 +11,8 @@ public class PlayerWeaponController : MonoBehaviour
     public GameObject bulletPrefab;
     private int weaponValue = 0;
 
-    private bool isShooting;
+    private bool isCharging;
+    public float charge = 0;
     private float lastShot;
     private float rateOfFire = 0.05f;
 
@@ -23,7 +24,7 @@ public class PlayerWeaponController : MonoBehaviour
         Controls = new MasterInputSystem();
         
         Controls.Player.Attack.performed += Context => Attack(weaponValue);
-        Controls.Player.Attack.canceled += Context => isShooting = false;
+        Controls.Player.Attack.canceled += Context => Shoot();
 
         Controls.Player.ChangeWeapon1.performed += Context => weaponValue = 0;
         Controls.Player.ChangeWeapon2.performed += Context => weaponValue = 1;
@@ -51,7 +52,7 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Shoot();
+        BowCharge();
     }
 
     private void Attack(int Value)
@@ -67,7 +68,7 @@ public class PlayerWeaponController : MonoBehaviour
         }
         else if (weaponValue == 2)
         {
-            isShooting = true;
+            isCharging = true;
         }
     }
 
@@ -115,7 +116,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void Shoot()
     {
-        if(isShooting && Time.time > lastShot + rateOfFire)
+        if(charge >= 100f && Time.time > lastShot + rateOfFire)
         {
             GameObject Bullet = Instantiate(bulletPrefab, gameObject.transform.position, Quaternion.identity);
             Bullet.GetComponent<Rigidbody2D>().velocity = playerMovement.previousDirection * 25f;
@@ -127,5 +128,14 @@ public class PlayerWeaponController : MonoBehaviour
             lastShot = Time.time;
         }
 
+        isCharging = false;
+        charge = 0;
+
+    }
+
+    void BowCharge()
+    {
+        if (isCharging && charge < 100f)
+            charge += 2f;
     }
 }
