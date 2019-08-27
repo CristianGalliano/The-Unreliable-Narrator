@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class PlayerMovementController : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+public class PlayerMovementControllerPlatform : MonoBehaviour
 {
-    public static PlayerMovementController PMC;
-    public Vector2 previousDirection = Vector2.right;
-    public bool canMove = true;
-    public int playerGameState = 0;
     private MasterInputSystem Controls;
     public float direction;
     private float speed = 10f;
@@ -76,7 +72,6 @@ public class PlayerMovementController : MonoBehaviour
         else
         {
             //animator.SetBool("IsMoving", true);
-            previousDirection = new Vector2(direction, 0);
         }
         if (isGrounded)
         {
@@ -93,7 +88,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void canJump()
     {
-        RaycastHit2D Hit = Physics2D.Raycast(feetPosition.position, Vector2.down, 0.1f, FloorLayermask);
+        RaycastHit2D Hit = Physics2D.Raycast(feetPosition.position, Vector2.down, 0.01f, FloorLayermask);
         Debug.DrawRay(feetPosition.position, Vector2.down, Color.red);
         if (Hit.collider != null)
         {

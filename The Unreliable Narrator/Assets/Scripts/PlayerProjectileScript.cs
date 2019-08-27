@@ -20,13 +20,13 @@ public class PlayerProjectileScript : MonoBehaviour
     {
         if (hit.tag != "Player")
         {
-            Destroy(gameObject, 0.01f);
+            //Destroy(gameObject, 0.01f);
         }
 
         if(hit.tag == "Enemy")
         {
             hit.GetComponent<EnemyScript>().TakeDamage(100);
-            Destroy(gameObject, 0.01f);
+            //Destroy(gameObject, 0.01f);
         }
     }
 }

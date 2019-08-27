@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMovementController))]
 public class PlayerWeaponController : MonoBehaviour
 {
     private MasterInputSystem Controls;

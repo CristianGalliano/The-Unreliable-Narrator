@@ -47,7 +47,7 @@ public class InteractionScript : MonoBehaviour
 
     private void Update()
     {
-        if (requireButtonPress && Input.GetKeyDown(KeyCode.Space) && !TextBubbleManager.TBM.textBubbleActive)
+        if (requireButtonPress && Input.GetKeyDown(KeyCode.L) && !TextBubbleManager.TBM.textBubbleActive)
         {
             TextBubbleManager.TBM.ReloadScript(thisText);
             TextBubbleManager.TBM.currentLine = startLine;
