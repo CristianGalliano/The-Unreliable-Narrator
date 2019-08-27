@@ -73,11 +73,22 @@ public class PlayerMovementController : MonoBehaviour
         {
             //animator.SetBool("IsMoving", false);
         }
-        else
+        else if(direction < 0)
+        {
+            direction = -1;
+        }
+        else if(direction > 0)
+        {
+            direction = 1;
+        }
+
+        if(direction != 0)
         {
             //animator.SetBool("IsMoving", true);
             previousDirection = new Vector2(direction, 0);
+            Debug.Log(previousDirection);
         }
+
         if (isGrounded)
         {
             float Movement = direction * speed * Time.deltaTime;
