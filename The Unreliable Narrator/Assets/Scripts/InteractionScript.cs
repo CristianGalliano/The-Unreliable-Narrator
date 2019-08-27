@@ -4,21 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InteractionScript : MonoBehaviour
-{
+{  
     private MasterInputSystem Controls;
-
-    public Image TextBubble,Popup;
-    public Text TextBubbleText;
-    public Transform HeadPosition, playerHeadPosition;
+    
     public string[] Text;
-    private int textNumber = 0;
-    private bool popupFollow = false, textBubbleActive = false;
+    public GameObject TextBubble, Popup;
+    public Text TextBubbleText;
+    public int currentLine, lastLine;
 
+    [SerializeField]
+    private Transform headPosition;
+    private Vector3 playerPosition;
+
+
+    public TextAsset thisText;
+    public int startLine, endLine;
+
+    public bool requireButtonPress;
+    public bool waitForPress;
     private bool interactionPressed = false;
-
-    public bool isTyping = false;
-    public bool interuptedTyping = false;
-    private float textSpeed = 0.025f;
 
     private void Awake()
     {
@@ -36,81 +40,75 @@ public class InteractionScript : MonoBehaviour
         Controls.Disable();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (popupFollow == true)
-        {
-            if (textBubbleActive == false)
-            {
-                Popup.gameObject.SetActive(true);
-            }
-            if (interactionPressed && textBubbleActive == false)
-            {
-                if (!isTyping && !interuptedTyping)
-                {
-                    Popup.gameObject.SetActive(false);
-                    textBubbleActive = true;
-                    TextBubble.transform.position = HeadPosition.transform.position;
-                    TextBubble.gameObject.SetActive(true);
-                    StartCoroutine(textScroll(Text[textNumber]));
-                    interactionPressed = false;
-                    PlayerMovementController.PMC.canMove = false;
-                }
-                else if (isTyping && !interuptedTyping)
-                {
-                    interuptedTyping = true;
-                }
-            }
-            else if (interactionPressed && textBubbleActive == true && textNumber < Text.Length - 1)
-            {
-                if (!isTyping && !interuptedTyping)
-                {
-                    textNumber++;
-                    interactionPressed = false;
-                    StartCoroutine(textScroll(Text[textNumber]));
-                }
-                else if (isTyping && !interuptedTyping)
-                {
-                    interuptedTyping = true;
-                }
-            }
-            else if(interactionPressed && textNumber +1 == Text.Length)
-            {
-                Popup.gameObject.SetActive(true);
-                textBubbleActive = false;
-                TextBubble.gameObject.SetActive(false);
-                textNumber = 0;
-                interactionPressed = false;
-                PlayerMovementController.PMC.canMove = true;
-            }
-        }
+        
     }
 
-    private IEnumerator textScroll(string Text)
+    private void Update()
     {
-        int letter = 0;
-        TextBubbleText.text = "";
-        isTyping = true;
-        interuptedTyping = false;
-        while (isTyping && !interuptedTyping && letter < (Text.Length -1))
+        if (requireButtonPress && Input.GetKeyDown(KeyCode.Space) && !TextBubbleManager.TBM.textBubbleActive)
         {
-            TextBubbleText.text += Text[letter];
-            letter++;
-            Debug.Log("returning");
-            yield return new WaitForSeconds(textSpeed);
+            TextBubbleManager.TBM.ReloadScript(thisText);
+            TextBubbleManager.TBM.currentLine = startLine;
+            TextBubbleManager.TBM.lastLine = endLine;
+            if (playerPosition.x < headPosition.position.x)
+            {
+                RectTransform rt = TextBubbleManager.TBM.TextBubble.GetComponent<RectTransform>();
+                rt.localScale = new Vector3(1, 1, 1);
+                rt = TextBubbleManager.TBM.TextBubbleText.GetComponent<RectTransform>();
+                rt.localScale = new Vector3(1, 1, 1);
+            }
+            else if (playerPosition.x > headPosition.position.x)
+            {
+                RectTransform rt = TextBubbleManager.TBM.TextBubble.GetComponent<RectTransform>();
+                rt.localScale = new Vector3(-1, 1, 1);
+                rt = TextBubbleManager.TBM.TextBubbleText.GetComponent<RectTransform>();
+                rt.localScale = new Vector3(-1, 1, 1);
+            }
+            TextBubbleManager.TBM.TextBubble.transform.position = headPosition.position;
+            TextBubbleManager.TBM.EnableTextBox();
+            interactionPressed = false;
         }
-        TextBubbleText.text = Text;
-        isTyping = false;
-        interuptedTyping = false;
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            popupFollow = true;          
+            TextBubbleManager.TBM.Popup.SetActive(true);
+            if (requireButtonPress)
+            {
+                waitForPress = true;
+                return;
+            }
+            TextBubbleManager.TBM.ReloadScript(thisText);
+            TextBubbleManager.TBM.currentLine = startLine;
+            TextBubbleManager.TBM.lastLine = endLine;
+            if (playerPosition.x < headPosition.position.x)
+            {
+                RectTransform rt = TextBubbleManager.TBM.TextBubble.GetComponent<RectTransform>();
+                rt.anchorMax = new Vector2(1, 0);
+                rt.anchorMin = new Vector2(1, 0);
+                rt.pivot = new Vector2(1, 0);
+            }
+            else if (playerPosition.x > headPosition.position.x)
+            {
+                RectTransform rt = TextBubbleManager.TBM.TextBubble.GetComponent<RectTransform>();
+                rt.anchorMax = new Vector2(0, 0);
+                rt.anchorMin = new Vector2(0, 0);
+                rt.pivot = new Vector2(0, 0);
+            }
+            TextBubbleManager.TBM.TextBubble.transform.position = headPosition.position;
+            TextBubbleManager.TBM.EnableTextBox();
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            playerPosition = collision.gameObject.transform.position;
         }
     }
 
@@ -118,12 +116,8 @@ public class InteractionScript : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            interactionPressed = false;
-            textBubbleActive = false;
-            TextBubble.gameObject.SetActive(false);
-            Popup.gameObject.SetActive(false);
-            popupFollow = false;
-            textNumber = 0;
+            TextBubbleManager.TBM.Popup.SetActive(false);
+            waitForPress = false;
         }
-    }
+    }  
 }

@@ -47,16 +47,18 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
+        if (!canMove)
         {
-            direction = new Vector2(Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
-            Vector2 Movement = direction * speed * Time.deltaTime;
-            transform.Translate(Movement);
+            return;
+        }
 
-            if (direction != Vector2.zero && direction != null)
-            {
-                previousDirection = direction;
-            }
+        direction = new Vector2(Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
+        Vector2 Movement = direction * speed * Time.deltaTime;
+        transform.Translate(Movement);
+
+        if (direction != Vector2.zero && direction != null)
+        {
+            previousDirection = direction;
         }
 
         //animator.SetFloat("Horizontal", Movement.x);

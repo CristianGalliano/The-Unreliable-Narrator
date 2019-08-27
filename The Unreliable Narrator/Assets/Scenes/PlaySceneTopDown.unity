@@ -151,7 +151,7 @@ RectTransform:
   m_Children:
   - {fileID: 738224866}
   m_Father: {fileID: 2081897722}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -266,7 +266,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: edd93a034b672b84db93a9e5ec1e7e49, type: 3}
-    m_FontSize: 75
+    m_FontSize: 65
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 5
@@ -409,33 +409,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cdf70582835c9f4f9701b3013343b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextBubble: {fileID: 1957029781}
-  Popup: {fileID: 1300465303}
+  Text: []
+  TextBubble: {fileID: 1957029778}
+  Popup: {fileID: 1300465300}
   TextBubbleText: {fileID: 335703827}
-  HeadPosition: {fileID: 203191151}
-  playerHeadPosition: {fileID: 928580177}
-  Text:
-  - '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-    exercitation ullamco laboris nisi ut aliq'
-  - in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-    id est laborum."
-  - Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
-    quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
-    quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-    eos qui ratione voluptatem
-  - dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-    exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-    consequatur? Quis autem v
-  - 'ut I must explain to you how all this mistaken idea of denouncing pleasure and
-    praising pain was born and I will give you a complete account of the system, and
-    expound the actual teachings of the great explorer of the truth, the master-builder
-    of human happiness. No one rejects, dislikes, or avoids pleasure itself, because
-    it is pleasure, but because '
-  isTyping: 0
-  interuptedTyping: 0
+  currentLine: 0
+  lastLine: 0
+  headPosition: {fileID: 203191151}
+  thisText: {fileID: 4900000, guid: fbed6574e7697a84493e9fa06d2abed6, type: 3}
+  startLine: 0
+  endLine: 10
+  requireButtonPress: 1
+  waitForPress: 0
 --- !u!61 &583071816
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -838,7 +823,7 @@ RectTransform:
   m_Children:
   - {fileID: 698700514}
   m_Father: {fileID: 2081897722}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3632,6 +3617,59 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1904043403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1904043405}
+  - component: {fileID: 1904043404}
+  m_Layer: 0
+  m_Name: TextBubbleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1904043404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904043403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47214a18e35ece944acd96f40b056c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: {fileID: 4900000, guid: d391803c36c5ac94aa2e5dcded484647, type: 3}
+  Text: []
+  TextBubble: {fileID: 1957029778}
+  Popup: {fileID: 1300465300}
+  TextBubbleText: {fileID: 335703827}
+  currentLine: 0
+  lastLine: 5
+  textBubbleActive: 0
+  isTyping: 0
+  interuptedTyping: 0
+--- !u!4 &1904043405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904043403}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1957029778
 GameObject:
   m_ObjectHideFlags: 0
@@ -3663,13 +3701,13 @@ RectTransform:
   m_Children:
   - {fileID: 335703829}
   m_Father: {fileID: 2081897722}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1420, y: 830}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -1420, y: 830}
   m_SizeDelta: {x: 1000, y: 500}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 0}
 --- !u!222 &1957029780
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3698,15 +3736,15 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2027077112
 GameObject:
@@ -3719,6 +3757,7 @@ GameObject:
   - component: {fileID: 2027077115}
   - component: {fileID: 2027077114}
   - component: {fileID: 2027077113}
+  - component: {fileID: 2027077116}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3791,6 +3830,26 @@ Transform:
   m_Father: {fileID: 377563108}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2027077116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027077112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AssetsPPU: 200
+  m_RefResolutionX: 3840
+  m_RefResolutionY: 2160
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1 &2067636444
 GameObject:
   m_ObjectHideFlags: 0
@@ -3865,9 +3924,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 28360435}
   - {fileID: 1957029779}
   - {fileID: 1300465301}
-  - {fileID: 28360435}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4012,6 +4071,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CollisionDetection
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1508955258451484329, guid: 084411fde9e52bd4a83001ab2dd95a32,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4357980762377539932, guid: 19e712c033733164ab852cad623b4c7f,
+        type: 3}
+    - target: {fileID: 1508955258451484329, guid: 084411fde9e52bd4a83001ab2dd95a32,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.96875
+      objectReference: {fileID: 0}
+    - target: {fileID: 1508955258451484329, guid: 084411fde9e52bd4a83001ab2dd95a32,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1508955258451484329, guid: 084411fde9e52bd4a83001ab2dd95a32,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1508955258451484329, guid: 084411fde9e52bd4a83001ab2dd95a32,
+        type: 3}
+      propertyPath: m_FlipY
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 084411fde9e52bd4a83001ab2dd95a32, type: 3}
