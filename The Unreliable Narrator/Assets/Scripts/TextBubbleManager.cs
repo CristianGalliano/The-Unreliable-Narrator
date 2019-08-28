@@ -96,7 +96,7 @@ public class TextBubbleManager : MonoBehaviour
                 interuptedTyping = true;
             }
             interactionPressed = false;
-        }    
+        }
     }
 
     public void EnableTextBox()

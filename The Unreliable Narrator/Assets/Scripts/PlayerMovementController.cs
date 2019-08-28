@@ -21,8 +21,18 @@ public class PlayerMovementController : MonoBehaviour
     public LayerMask FloorLayermask;
     private int jumpCount = 0;
 
+
+
     private void Awake()
     {
+        if (PMC == null)
+        {
+            PMC = this;
+        }
+        else if (PMC != this)
+        {
+            Destroy(this);
+        }
         Controls = new MasterInputSystem();
         Controls.Player.Movement.performed += Context => direction = Context.ReadValue<float>();
         Controls.Player.Movement.canceled += Context => direction = 0;
@@ -48,8 +58,11 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movementFunc();
-        canJump();
+        if (canMove)
+        {
+            movementFunc();
+            canJump();
+        }
     }
 
     private void jumpFunc()
@@ -71,7 +84,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (direction == 0)
         {
-            //animator.SetBool("IsMoving", false);
+            animator.SetBool("IsMoving", false);
         }
         else if(direction < 0)
         {
@@ -84,9 +97,10 @@ public class PlayerMovementController : MonoBehaviour
 
         if(direction != 0)
         {
-            //animator.SetBool("IsMoving", true);
+            animator.SetBool("IsMoving", true);
+            Debug.Log("MOVING");
             previousDirection = new Vector2(direction, 0);
-            Debug.Log(previousDirection);
+           // Debug.Log(previousDirection);
         }
 
         if (isGrounded)
