@@ -21,6 +21,8 @@ public class PlayerMovementController : MonoBehaviour
     public LayerMask FloorLayermask;
     private int jumpCount = 0;
 
+
+
     private void Awake()
     {
         if (PMC == null)
@@ -82,7 +84,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (direction == 0)
         {
-            //animator.SetBool("IsMoving", false);
+            animator.SetBool("IsMoving", false);
         }
         else if(direction < 0)
         {
@@ -95,9 +97,10 @@ public class PlayerMovementController : MonoBehaviour
 
         if(direction != 0)
         {
-            //animator.SetBool("IsMoving", true);
+            animator.SetBool("IsMoving", true);
+            Debug.Log("MOVING");
             previousDirection = new Vector2(direction, 0);
-            Debug.Log(previousDirection);
+           // Debug.Log(previousDirection);
         }
 
         if (isGrounded)
