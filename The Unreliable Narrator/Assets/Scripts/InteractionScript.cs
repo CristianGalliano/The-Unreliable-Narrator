@@ -5,29 +5,26 @@ using UnityEngine.UI;
 
 public class InteractionScript : MonoBehaviour
 {  
-    private MasterInputSystem Controls;
-    
-    public string[] Text;
-    public GameObject TextBubble, Popup;
-    public Text TextBubbleText;
-    public int currentLine, lastLine;
+    private MasterInputSystem Controls;   
 
     [SerializeField]
     private Transform headPosition;
     private Vector3 playerPosition;
-
-
     public TextAsset thisText;
     public int startLine, endLine;
 
     public bool requireButtonPress;
     public bool waitForPress;
     private bool interactionPressed = false;
+    private bool playerInRange = false;
+
+    public GameObject leftFacing, DownFacing;
 
     private void Awake()
     {
         Controls = new MasterInputSystem();
         Controls.Player.Interact.performed += Context => interactionPressed = true;
+        Controls.Player.Interact.canceled += Context => interactionPressed = false;
     }
 
     private void OnEnable()
@@ -47,7 +44,7 @@ public class InteractionScript : MonoBehaviour
 
     private void Update()
     {
-        if (requireButtonPress && Input.GetKeyDown(KeyCode.L) && !TextBubbleManager.TBM.textBubbleActive)
+        if (requireButtonPress && interactionPressed && !TextBubbleManager.TBM.textBubbleActive && playerInRange)
         {
             TextBubbleManager.TBM.ReloadScript(thisText);
             TextBubbleManager.TBM.currentLine = startLine;
@@ -58,6 +55,8 @@ public class InteractionScript : MonoBehaviour
                 rt.localScale = new Vector3(1, 1, 1);
                 rt = TextBubbleManager.TBM.TextBubbleText.GetComponent<RectTransform>();
                 rt.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(0.2f, transform.localScale.y, transform.localScale.z);
+                TextBubbleManager.TBM.TextBubble.transform.position = new Vector3(-1.5f, headPosition.position.y, headPosition.position.z);
             }
             else if (playerPosition.x > headPosition.position.x)
             {
@@ -65,10 +64,18 @@ public class InteractionScript : MonoBehaviour
                 rt.localScale = new Vector3(-1, 1, 1);
                 rt = TextBubbleManager.TBM.TextBubbleText.GetComponent<RectTransform>();
                 rt.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-0.2f, transform.localScale.y, transform.localScale.z);
+                TextBubbleManager.TBM.TextBubble.transform.position = new Vector3(1.5f, headPosition.position.y, headPosition.position.z);
             }
-            TextBubbleManager.TBM.TextBubble.transform.position = headPosition.position;
+            leftFacing.SetActive(true);
+            DownFacing.SetActive(false);
             TextBubbleManager.TBM.EnableTextBox();
-            interactionPressed = false;
+        }
+        interactionPressed = false;
+        if (!TextBubbleManager.TBM.textBubbleActive)
+        {
+            leftFacing.SetActive(false);
+            DownFacing.SetActive(true);
         }
     }
 
@@ -76,6 +83,7 @@ public class InteractionScript : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            playerInRange = true;
             TextBubbleManager.TBM.Popup.SetActive(true);
             if (requireButtonPress)
             {
@@ -116,6 +124,7 @@ public class InteractionScript : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            playerInRange = false;
             TextBubbleManager.TBM.Popup.SetActive(false);
             waitForPress = false;
         }

@@ -86,7 +86,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: Layer 14
+  - name: DemonDown_Head
     originalName: 
     pivot: {x: 0.45299894, y: 0.5391958}
     alignment: 9
@@ -108,7 +108,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 166, y: 1484}
-  - name: Layer 6
+  - name: DemonDown_Tentacle8
     originalName: 
     pivot: {x: 0.12575875, y: 0.89403623}
     alignment: 9
@@ -116,7 +116,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 9
-      y: 4
+      y: 11
       width: 1038
       height: 1998
     spriteID: 31ca881eb17cfc346b77956dd8a90675
@@ -130,7 +130,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -1214, y: -358}
-  - name: Layer 7
+  - name: DemonDown_Body
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -138,7 +138,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 2020
+      y: 2027
       width: 894
       height: 2247
     spriteID: 0fefe87bb7bed89489e4ec59cb35c3ba
@@ -152,7 +152,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -637, y: 1906}
-  - name: Layer 9
+  - name: DemonDown_Tentacle9
     originalName: 
     pivot: {x: 0.9013993, y: 0.82405365}
     alignment: 9
@@ -160,7 +160,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1050
-      y: 4
+      y: 11
       width: 1071
       height: 1934
     spriteID: 4bac10bfdee3a484c940d5c4730072fc
@@ -174,7 +174,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 993, y: -479}
-  - name: Layer 10
+  - name: DemonDown_Tentacle3
     originalName: 
     pivot: {x: 0.86356604, y: 0.8674778}
     alignment: 9
@@ -196,7 +196,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -69, y: 3195}
-  - name: Layer 11
+  - name: DemonDown_Tentacle6
     originalName: 
     pivot: {x: 0.8930594, y: 0.84854186}
     alignment: 9
@@ -218,7 +218,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 883, y: 822}
-  - name: Layer 12
+  - name: DemonDown_Tentacle7
     originalName: 
     pivot: {x: 0.8357898, y: 0.32458267}
     alignment: 9
@@ -226,7 +226,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1050
-      y: 1946
+      y: 1953
       width: 819
       height: 803
     spriteID: f262dd3ca4cff06458ec8bbce05d2869
@@ -240,7 +240,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 726, y: -480}
-  - name: Layer 13
+  - name: DemonDown_Tentacle5
     originalName: 
     pivot: {x: 0.7307134, y: 0.11774875}
     alignment: 9
@@ -262,7 +262,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 1001, y: 728}
-  - name: Layer 5
+  - name: DemonDown_Tentacle10
     originalName: 
     pivot: {x: 0.1077488, y: 0.8941728}
     alignment: 9
@@ -284,14 +284,14 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 855, y: -1101}
-  - name: Layer 4
+  - name: DemonDown_Tentacle2
     originalName: 
     pivot: {x: 0.14503418, y: 0.7909832}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 11
       y: 5612
       width: 1036
       height: 979
@@ -306,7 +306,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -1353, y: 3728}
-  - name: Layer 3
+  - name: DemonDown_Tentacle4
     originalName: 
     pivot: {x: 0.17628148, y: 0.36719134}
     alignment: 9
@@ -328,7 +328,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -180, y: 1658}
-  - name: Layer 14_1
+  - name: DemonDown_Tentacle1
     originalName: 
     pivot: {x: 0.35828972, y: 0.16154225}
     alignment: 9
@@ -336,7 +336,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 6599
+      y: 6606
       width: 852
       height: 1090
     spriteID: ce16d44e663aff74a859f03345d45907

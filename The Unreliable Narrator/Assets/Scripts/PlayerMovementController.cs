@@ -23,6 +23,14 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Awake()
     {
+        if (PMC == null)
+        {
+            PMC = this;
+        }
+        else if (PMC != this)
+        {
+            Destroy(this);
+        }
         Controls = new MasterInputSystem();
         Controls.Player.Movement.performed += Context => direction = Context.ReadValue<float>();
         Controls.Player.Movement.canceled += Context => direction = 0;
@@ -48,8 +56,11 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movementFunc();
-        canJump();
+        if (canMove)
+        {
+            movementFunc();
+            canJump();
+        }
     }
 
     private void jumpFunc()
