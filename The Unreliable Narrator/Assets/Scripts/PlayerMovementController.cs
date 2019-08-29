@@ -21,6 +21,9 @@ public class PlayerMovementController : MonoBehaviour
     public LayerMask FloorLayermask;
     private int jumpCount = 0;
 
+    [Header("PlayerSprites")]
+    public GameObject PlayerSide;
+    public GameObject PlayerDown;
 
 
     private void Awake()
@@ -52,7 +55,8 @@ public class PlayerMovementController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        PlayerSide.SetActive(false);
+        PlayerDown.SetActive(true);
     }
 
     // Update is called once per frame
@@ -62,6 +66,8 @@ public class PlayerMovementController : MonoBehaviour
         {
             movementFunc();
             canJump();
+        } else {
+            SetPlayerDownActive(true);
         }
     }
 
@@ -71,8 +77,12 @@ public class PlayerMovementController : MonoBehaviour
         {
             if (isGrounded)
             {
+                SetPlayerDownActive(false);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isGrounded = false;
+
+                animator.SetTrigger("Jump");
+                animator.SetBool("isFalling", true);
             }
             if (!isGrounded && canDoubleJump)
             {
@@ -83,37 +93,46 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
+    private void SetPlayerDownActive(bool toggle) {
+        PlayerDown.SetActive(toggle);
+        PlayerSide.SetActive(!toggle);
+    }
+
     private void movementFunc()
     {
-        if (direction == 0)
+        if (direction == 0 && isGrounded)
         {
             animator.SetBool("IsMoving", false);
+            SetPlayerDownActive(true);
         }
-        else if(direction < 0)
-        {
+        else if(direction < 0) { 
+            transform.localScale = new Vector3(-0.75f, transform.localScale.y, transform.localScale.z);
             direction = -1;
         }
         else if(direction > 0)
         {
+            transform.localScale = new Vector3(0.75f, transform.localScale.y, transform.localScale.z);
             direction = 1;
         }
 
         if(direction != 0)
         {
+            SetPlayerDownActive(false);
             animator.SetBool("IsMoving", true);
-            Debug.Log("MOVING");
             previousDirection = new Vector2(direction, 0);
-           // Debug.Log(previousDirection);
         }
 
         if (isGrounded)
         {
+            animator.SetBool("isFalling", false);
             float Movement = direction * speed * Time.deltaTime;
             //animator.SetFloat("Horizontal", direction);
             transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
         }
         else
         {
+            animator.SetBool("isFalling", true);
+            SetPlayerDownActive(false);
             float Movement = direction * jumpSpeed * Time.deltaTime;
             transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
         }
