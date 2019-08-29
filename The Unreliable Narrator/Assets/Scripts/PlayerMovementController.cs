@@ -31,9 +31,51 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< Updated upstream
         direction = new Vector2(Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
         Vector2 Movement = direction * speed * Time.deltaTime;
         transform.Translate(Movement);
+=======
+        if (canMove)
+        {
+            movementFunc();
+            canJump();
+        }
+    }
+
+    private void jumpFunc()
+    {
+        if (canMove)
+        {
+            if (isGrounded)
+            {
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                isGrounded = false;
+            }
+            if (!isGrounded && canDoubleJump)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                canDoubleJump = false;
+            }
+        }
+    }
+
+    private void movementFunc()
+    {
+        if (direction == 0)
+        {
+            //animator.SetBool("IsMoving", false);
+        }
+        else if(direction < 0)
+        {
+            direction = -1;
+        }
+        else if(direction > 0)
+        {
+            direction = 1;
+        }
+>>>>>>> Stashed changes
 
         if (direction != Vector2.zero && direction != null)
         {
