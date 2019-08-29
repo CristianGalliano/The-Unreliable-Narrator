@@ -9,6 +9,7 @@ public class PlayerWeaponController : MonoBehaviour
     private PlayerMovementController playerMovement;
     public BoxCollider2D meleeWeapon1;
     public CircleCollider2D meleeWeapon2;
+    public List<EnemyScript> mw1HitList, mw2HitList;
     public GameObject bulletPrefab;
     private int weaponValue = 0;
 
@@ -54,6 +55,7 @@ public class PlayerWeaponController : MonoBehaviour
     void Update()
     {
         BowCharge();
+        SetHitboxDir();
     }
 
     private void Attack(int Value)
@@ -99,18 +101,38 @@ public class PlayerWeaponController : MonoBehaviour
         }
     }
 
+    private void SetHitboxDir()
+    {
+        if (playerMovement.previousDirection.x == 1)
+            meleeWeapon1.transform.rotation = Quaternion.Euler(0, 0, -90);
+        else if (playerMovement.previousDirection.x == -1)
+            meleeWeapon1.transform.rotation = Quaternion.Euler(0, 0, 90);
+    }
+
     private void MeleeOne()
     {
+        /*
         float rot_z = Mathf.Atan2(playerMovement.previousDirection.y, playerMovement.previousDirection.x) * Mathf.Rad2Deg;
         meleeWeapon1.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+        */
+
+        foreach(EnemyScript enemy in mw1HitList)
+        {
+            enemy.TakeDamage(10);
+        }
     }
 
     private void Meleetwo()
     {
         if (Time.time > lastHit + hitChargeTime)
         {
-            //play animation
+
             lastHit = Time.time;
+        }
+
+        foreach (EnemyScript enemy in mw2HitList)
+        {
+            enemy.TakeDamage(10);
         }
 
     }

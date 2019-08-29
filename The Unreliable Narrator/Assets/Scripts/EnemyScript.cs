@@ -22,11 +22,17 @@ public class EnemyScript : MonoBehaviour
 
     //Pathfinding
     private PlayerMovementController player;
+    private PlayerWeaponController pWeapon;
     float disToPlayer;
     private bool playerFound;
     private int playerDir;
     private Vector2 playerLastPos;
     private Vector2 v2null = new Vector2(-12345, -12345);
+
+    //Pathfinding - Attack
+    private float knockBackForce = 100f;
+    private float lastHit;
+    private float attackSpeed = 0.5f;
 
     public bool MoveType = true;
 
@@ -35,6 +41,7 @@ public class EnemyScript : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.Find("PlayerControllerTopDown").GetComponent<PlayerMovementController>();
+        pWeapon = GameObject.Find("PlayerControllerTopDown").GetComponent<PlayerWeaponController>();
         jumpSpeed = speed / 2;
         playerLastPos = v2null;
     }
@@ -55,32 +62,37 @@ public class EnemyScript : MonoBehaviour
         KnockBack();
 
         if (HP <= 0)
+        {
+            pWeapon.mw1HitList.Remove(this);
+            pWeapon.mw2HitList.Remove(this);
             Destroy(gameObject);
+        }
     }
 
     void AttackPlayer()
     {
-        if(disToPlayer < 1f)
+        if(disToPlayer < 1f && Time.time > lastHit + attackSpeed)
         {
             //player.hp--;
             PlayerKnockBack();
+            lastHit = Time.time;
         }
     }
 
     void KnockBack()
     {
         if (playerDir == 1)
-            rigid.AddForce(new Vector2(100f,100f));
+            rigid.AddForce(new Vector2(-knockBackForce, knockBackForce));
         else if(playerDir == -1)
-            rigid.AddForce(new Vector2(-100f, 100f));
+            rigid.AddForce(new Vector2(knockBackForce, knockBackForce));
     }
 
     void PlayerKnockBack()
     {
         if (playerDir == 1)
-            player.rb.AddForce(new Vector2(-100f, 100f));
+            player.rb.AddForce(new Vector2(knockBackForce, knockBackForce));
         else if (playerDir == -1)
-            player.rb.AddForce(new Vector2(100f, 100f));
+            player.rb.AddForce(new Vector2(-knockBackForce, knockBackForce));
     }
 
     #region Pathfinding
@@ -91,7 +103,7 @@ public class EnemyScript : MonoBehaviour
         if(transform.position.x > player.transform.position.x)
             playerDir = -1;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, 100f, layersToHit);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, 1000000000f, layersToHit);
         playerFound = (hit.transform.tag == player.transform.tag && disToPlayer <= detectRange);
 
         if (playerFound)
@@ -109,7 +121,7 @@ public class EnemyScript : MonoBehaviour
 
     void Move()
     {
-        if (disToPlayer > 1f && playerLastPos != v2null)
+        if (disToPlayer > 1f && playerLastPos != v2null && Time.time > lastHit + attackSpeed)
         {
             if(isGrounded)
                 transform.position = new Vector2(Vector2.MoveTowards(transform.position, playerLastPos, speed).x, transform.position.y);
