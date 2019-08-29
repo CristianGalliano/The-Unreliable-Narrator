@@ -11,14 +11,13 @@ public class PlayerWeaponController : MonoBehaviour
     private PlayerMovementController playerMovement;
 
     //Stats
-    public int health = 3;
+    public int health = 6;
     public GameObject[] Hearts;
     int currentHeart = -1;
 
     //Combat
-    public BoxCollider2D meleeWeapon1;
-    public CircleCollider2D meleeWeapon2;
-    public List<EnemyScript> mw1HitList, mw2HitList;
+    public BoxCollider2D meleeWeapon;
+    public List<EnemyScript> meleeWeaponHitList;
     public GameObject bulletPrefab;
 
     private int weaponValue = 0;
@@ -42,7 +41,6 @@ public class PlayerWeaponController : MonoBehaviour
 
         Controls.Player.ChangeWeapon1.performed += Context => weaponValue = 0;
         Controls.Player.ChangeWeapon2.performed += Context => weaponValue = 1;
-        Controls.Player.ChangeWeapon3.performed += Context => weaponValue = 2;
         Controls.Player.ChangeWeaponNext.performed += Context => ToggleWeapon(1);
         Controls.Player.ChangeWeaponPrevious.performed += Context => ToggleWeapon(0);
     }
@@ -66,8 +64,9 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Weapon " + weaponValue + " is being used!");
         BowCharge();
-        SetHitboxDir();
+        //SetHitboxDir();
     }
 
     private void Attack(int Value)
@@ -78,10 +77,6 @@ public class PlayerWeaponController : MonoBehaviour
             MeleeOne();
         }
         else if (weaponValue == 1)
-        {
-            Meleetwo();
-        }
-        else if (weaponValue == 2)
         {
             isCharging = true;
         }
@@ -97,7 +92,7 @@ public class PlayerWeaponController : MonoBehaviour
         }
         else
         {
-            Death();
+            //Death();
         }
     }
 
@@ -119,12 +114,12 @@ public class PlayerWeaponController : MonoBehaviour
             }
             else
             {
-                weaponValue = 2;
+                weaponValue = 1;
             }
         }
         if (i == 1)
         {
-            if (weaponValue < 2)
+            if (weaponValue < 1)
             {
                 weaponValue++;
             }
@@ -138,37 +133,17 @@ public class PlayerWeaponController : MonoBehaviour
     private void SetHitboxDir()
     {
         if (playerMovement.previousDirection.x == 1)
-            meleeWeapon1.transform.rotation = Quaternion.Euler(0, 0, -90);
+            meleeWeapon.transform.rotation = Quaternion.Euler(0, 0, -90);
         else if (playerMovement.previousDirection.x == -1)
-            meleeWeapon1.transform.rotation = Quaternion.Euler(0, 0, 90);
+            meleeWeapon.transform.rotation = Quaternion.Euler(0, 0, 90);
     }
 
     private void MeleeOne()
     {
-        /*
-        float rot_z = Mathf.Atan2(playerMovement.previousDirection.y, playerMovement.previousDirection.x) * Mathf.Rad2Deg;
-        meleeWeapon1.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-        */
-
-        foreach(EnemyScript enemy in mw1HitList)
+        foreach(EnemyScript enemy in meleeWeaponHitList)
         {
             enemy.TakeDamage(10);
         }
-    }
-
-    private void Meleetwo()
-    {
-        if (Time.time > lastHit + hitChargeTime)
-        {
-
-            lastHit = Time.time;
-        }
-
-        foreach (EnemyScript enemy in mw2HitList)
-        {
-            enemy.TakeDamage(10);
-        }
-
     }
 
     private void Shoot()

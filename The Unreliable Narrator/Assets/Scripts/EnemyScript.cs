@@ -40,8 +40,8 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        player = GameObject.Find("PlayerControllerTopDown").GetComponent<PlayerMovementController>();
-        pWeapon = GameObject.Find("PlayerControllerTopDown").GetComponent<PlayerWeaponController>();
+        player = PlayerMovementController.PMC;
+        pWeapon = PlayerMovementController.PMC.gameObject.GetComponent<PlayerWeaponController>();
         jumpSpeed = speed / 2;
         playerLastPos = v2null;
     }
@@ -63,8 +63,7 @@ public class EnemyScript : MonoBehaviour
 
         if (HP <= 0)
         {
-            pWeapon.mw1HitList.Remove(this);
-            pWeapon.mw2HitList.Remove(this);
+            pWeapon.meleeWeaponHitList.Remove(this);
             Destroy(gameObject);
         }
     }

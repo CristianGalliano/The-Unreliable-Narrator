@@ -38,14 +38,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "ChangeWeapon3",
-                    "type": "Button",
-                    "id": "9696399d-ae26-4580-9f8e-09c7afe245a5",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "ChangeWeaponNext",
                     "type": "Button",
                     "id": "44850351-b76b-4cb8-a289-d21aaae33991",
@@ -260,28 +252,6 @@
                     "processors": "",
                     "groups": ";Controller",
                     "action": "ChangeWeapon2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e9020fac-b66a-4c49-8e68-737e3e9acda7",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard and Mouse",
-                    "action": "ChangeWeapon3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "537b703f-91f8-4755-80f7-18fc4d90da6c",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "ChangeWeapon3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
