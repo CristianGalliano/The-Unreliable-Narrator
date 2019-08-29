@@ -1,25 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerMovementController))]
 public class PlayerWeaponController : MonoBehaviour
 {
+    //References
     private MasterInputSystem Controls;
     private PlayerMovementController playerMovement;
+
+    //Stats
+    public int health = 3;
+    public GameObject[] Hearts;
+    int currentHeart = -1;
+
+    //Combat
     public BoxCollider2D meleeWeapon1;
     public CircleCollider2D meleeWeapon2;
     public List<EnemyScript> mw1HitList, mw2HitList;
     public GameObject bulletPrefab;
-    private int weaponValue = 0;
 
+    private int weaponValue = 0;
     private bool isCharging;
     public float charge = 0;
-    private float lastShot;
-    private float rateOfFire = 0.05f;
 
+    //Melee Weapon
     private float lastHit;
     private float hitChargeTime = 0.05f;
+
+    //Ranged Weapon
+    private float lastShot;
+    private float rateOfFire = 0.05f;
 
     private void Awake()
     {
@@ -73,6 +85,28 @@ public class PlayerWeaponController : MonoBehaviour
         {
             isCharging = true;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (health > 0)
+        {
+            health -= damage;
+            currentHeart += damage;
+            Hearts[currentHeart].SetActive(false);
+        }
+        else
+        {
+            Death();
+        }
+    }
+
+    void Death()
+    {
+        Camera.main.GetComponent<CameraFollowScript>().enabled = false;
+        Destroy(gameObject);
+
+        SceneManager.LoadScene("PlaySceneTopDown");
     }
 
     private void ToggleWeapon(int i)

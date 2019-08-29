@@ -73,7 +73,7 @@ public class EnemyScript : MonoBehaviour
     {
         if(disToPlayer < 1f && Time.time > lastHit + attackSpeed)
         {
-            //player.hp--;
+            pWeapon.TakeDamage(1);
             PlayerKnockBack();
             lastHit = Time.time;
         }

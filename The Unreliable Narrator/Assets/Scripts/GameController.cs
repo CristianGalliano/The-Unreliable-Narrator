@@ -35,8 +35,6 @@ public class GameController : MonoBehaviour
 
     }
 
-
-
     void OnDeath()
     {
         Camera.GetComponent<CameraFollowScript>().enabled = false;
