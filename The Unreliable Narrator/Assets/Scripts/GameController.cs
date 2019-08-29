@@ -4,36 +4,42 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public float Score = 0;
-    public float Multiplier = 1;
-    private float lastPointTime, lastDecayTime;
+    public int health = 3;
+    public GameObject Player;
+    public GameObject Camera;
+
+    public GameObject[] Hearts;
+
+    int currentHeart = -1;
 
     void Start()
     {
-
+        Player = GameObject.FindWithTag("Player");
+        Camera = GameObject.Find("Main Camera");
     }
 
     void Update()
     {
-        MultiplierDecay();
+        
     }
 
-    public void AddScore(int points)
+    
+    public void OnDamage(int damage)
     {
-        Score += points * (int)Multiplier;
-        Multiplier += 0.05f;
-        lastPointTime = Time.time;
-    }
-
-    void MultiplierDecay()
-    {
-        if (Time.time > lastPointTime + 5f)
+        if (health > 0)
         {
-            if (Time.time > lastDecayTime + 1f && Multiplier >= 1)
-            {
-                lastDecayTime = Time.time;
-                Multiplier--;
-            }
+            health -= damage;
+            currentHeart += damage;
+            Hearts[currentHeart].SetActive(false);
         }
+
+    }
+
+
+
+    void OnDeath()
+    {
+        Camera.GetComponent<CameraFollowScript>().enabled = false;
+        Destroy(Player.gameObject);
     }
 }
