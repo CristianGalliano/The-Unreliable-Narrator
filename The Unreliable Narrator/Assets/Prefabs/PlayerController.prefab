@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1508955258278745961}
   - component: {fileID: 1508955258278745960}
+  - component: {fileID: 4305399026887107989}
   m_Layer: 10
   m_Name: MeleeWeapon2
   m_TagString: Untagged
@@ -47,6 +48,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
+--- !u!114 &4305399026887107989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508955258278745967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef233925a6330c41bbbdd9ff6ac26ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1508955258451484335
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,9 +226,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d9179f7e5e662845b172bc0080de4c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0}
   previousDirection: {x: 0, y: 1}
+  canMove: 1
+  playerGameState: 0
+  direction: 0
+  isGrounded: 1
+  canDoubleJump: 1
+  rb: {fileID: 0}
+  feetPosition: {fileID: 0}
   animator: {fileID: 0}
+  FloorLayermask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1508955258451484325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,8 +252,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeWeapon1: {fileID: 1508955259128140643}
   meleeWeapon2: {fileID: 1508955258278745960}
+  mw1TriggerList: []
+  mw2TriggerList: []
   bulletPrefab: {fileID: 563964436279273396, guid: 4693fcfe697b8f64898209d3208173e3,
     type: 3}
+  charge: 0
 --- !u!1 &1508955259128140642
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1508955259128140668}
   - component: {fileID: 1508955259128140643}
+  - component: {fileID: 7680649818248370813}
   m_Layer: 10
   m_Name: MeleeWeapon1
   m_TagString: Untagged
@@ -289,3 +315,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &7680649818248370813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508955259128140642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef233925a6330c41bbbdd9ff6ac26ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

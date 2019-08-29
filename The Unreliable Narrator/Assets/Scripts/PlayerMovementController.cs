@@ -101,7 +101,6 @@ public class PlayerMovementController : MonoBehaviour
         if(direction != 0)
         {
             animator.SetBool("IsMoving", true);
-            Debug.Log("MOVING");
             previousDirection = new Vector2(direction, 0);
            // Debug.Log(previousDirection);
         }
