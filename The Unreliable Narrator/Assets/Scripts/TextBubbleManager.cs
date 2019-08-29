@@ -113,6 +113,7 @@ public class TextBubbleManager : MonoBehaviour
         TextBubble.SetActive(false);
         textBubbleActive = false;
         PlayerMovementController.PMC.canMove = true;
+        CameraFollowScript.CFS.isInteracted = false;
     }
 
     public void ReloadScript(TextAsset newText)

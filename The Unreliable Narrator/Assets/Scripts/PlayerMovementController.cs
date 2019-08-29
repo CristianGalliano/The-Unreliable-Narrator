@@ -67,16 +67,19 @@ public class PlayerMovementController : MonoBehaviour
 
     private void jumpFunc()
     {
-        if (isGrounded)
+        if (canMove)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isGrounded = false;
-        }
-        if (!isGrounded && canDoubleJump)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            canDoubleJump = false;
+            if (isGrounded)
+            {
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                isGrounded = false;
+            }
+            if (!isGrounded && canDoubleJump)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                canDoubleJump = false;
+            }
         }
     }
 

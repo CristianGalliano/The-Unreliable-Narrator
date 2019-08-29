@@ -7,8 +7,7 @@ public class InteractionScript : MonoBehaviour
 {  
     private MasterInputSystem Controls;   
 
-    [SerializeField]
-    private Transform headPosition;
+    public Transform headPosition;
     private Vector3 playerPosition;
     public TextAsset thisText;
     public int startLine, endLine;
@@ -44,11 +43,13 @@ public class InteractionScript : MonoBehaviour
 
     private void Update()
     {
-        if (requireButtonPress && interactionPressed && !TextBubbleManager.TBM.textBubbleActive && playerInRange)
+        if (requireButtonPress && interactionPressed && !TextBubbleManager.TBM.textBubbleActive && playerInRange && PlayerMovementController.PMC.isGrounded)
         {
             TextBubbleManager.TBM.ReloadScript(thisText);
             TextBubbleManager.TBM.currentLine = startLine;
             TextBubbleManager.TBM.lastLine = endLine;
+            CameraFollowScript.CFS.InteractedTargetPosition = gameObject;
+            CameraFollowScript.CFS.isInteracted = true;
             if (playerPosition.x < headPosition.position.x)
             {
                 RectTransform rt = TextBubbleManager.TBM.TextBubble.GetComponent<RectTransform>();
@@ -57,6 +58,7 @@ public class InteractionScript : MonoBehaviour
                 rt.localScale = new Vector3(1, 1, 1);
                 transform.localScale = new Vector3(0.2f, transform.localScale.y, transform.localScale.z);
                 TextBubbleManager.TBM.TextBubble.transform.position = new Vector3(-1.5f, headPosition.position.y, headPosition.position.z);
+                CameraFollowScript.CFS.isLeft = true;
             }
             else if (playerPosition.x > headPosition.position.x)
             {
@@ -66,6 +68,7 @@ public class InteractionScript : MonoBehaviour
                 rt.localScale = new Vector3(-1, 1, 1);
                 transform.localScale = new Vector3(-0.2f, transform.localScale.y, transform.localScale.z);
                 TextBubbleManager.TBM.TextBubble.transform.position = new Vector3(1.5f, headPosition.position.y, headPosition.position.z);
+                CameraFollowScript.CFS.isLeft = false;
             }
             leftFacing.SetActive(true);
             DownFacing.SetActive(false);
@@ -84,7 +87,6 @@ public class InteractionScript : MonoBehaviour
         if (collision.tag == "Player")
         {
             playerInRange = true;
-            TextBubbleManager.TBM.Popup.SetActive(true);
             if (requireButtonPress)
             {
                 waitForPress = true;
@@ -117,6 +119,14 @@ public class InteractionScript : MonoBehaviour
         if (collision.tag == "Player")
         {
             playerPosition = collision.gameObject.transform.position;
+            if (PlayerMovementController.PMC.isGrounded && !TextBubbleManager.TBM.textBubbleActive)
+            {
+                TextBubbleManager.TBM.Popup.SetActive(true);
+            }
+            else
+            {
+                TextBubbleManager.TBM.Popup.SetActive(false);
+            }
         }
     }
 
