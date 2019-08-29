@@ -79,13 +79,11 @@ public class PlayerMovementController : MonoBehaviour
             {
                 SetPlayerDownActive(false);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                StartCoroutine(SetJump());
                 isGrounded = false;
-
-                animator.SetTrigger("Jump");
-                animator.SetBool("isFalling", true);
+                
             }
-            if (!isGrounded && canDoubleJump)
-            {
+            if (!isGrounded && canDoubleJump) {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 canDoubleJump = false;
@@ -131,7 +129,7 @@ public class PlayerMovementController : MonoBehaviour
         }
         else
         {
-            animator.SetBool("isFalling", true);
+            //animator.SetBool("isFalling", true);
             SetPlayerDownActive(false);
             float Movement = direction * jumpSpeed * Time.deltaTime;
             transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
@@ -154,5 +152,10 @@ public class PlayerMovementController : MonoBehaviour
             isGrounded = false;
             //animator.SetBool("IsJumping", true);
         }
+    }
+    IEnumerator SetJump() {
+        yield return new WaitForSeconds(0.05f);
+        animator.SetTrigger("Jump");
+        animator.SetBool("isFalling", true);
     }
 }
