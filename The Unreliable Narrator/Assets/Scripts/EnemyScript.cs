@@ -8,16 +8,16 @@ public class EnemyScript : MonoBehaviour
     public int HP = 100;
 
     //Physics
-    private float speed = 0.05f;
-    private float detectRange = 9f;
-    private float jumpSpeed;
-    private float jumpForce = 6f;
+    private float speed = 0.1f;
+    private float detectRange = 10f;
+    private float jumpForce = 7.5f;
     private bool isGrounded = true;
+    private bool isJumping = false;
 
     //Raycast
     public LayerMask layersToHit;
     private Rigidbody2D rigid;
-    RaycastHit2D left, right, down;
+    RaycastHit2D left, right, down, leftDown, rightDown;
     public Transform feetPosition;
 
     //Pathfinding
@@ -42,7 +42,6 @@ public class EnemyScript : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         player = PlayerMovementController.PMC;
         pWeapon = PlayerMovementController.PMC.gameObject.GetComponent<PlayerWeaponController>();
-        jumpSpeed = speed / 2;
         playerLastPos = v2null;
     }
 
@@ -53,7 +52,9 @@ public class EnemyScript : MonoBehaviour
         ChasePlayer();
         AttackPlayer();
 
-        disToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        Debug.Log(disToPlayer);
+
+        disToPlayer = Vector2.Distance(transform.position, player.centrePos);
     }
 
     public void TakeDamage(int damage)
@@ -70,11 +71,15 @@ public class EnemyScript : MonoBehaviour
 
     void AttackPlayer()
     {
-        if(disToPlayer < 1f && Time.time > lastHit + attackSpeed)
+        if(disToPlayer < 1.5f && Time.time > lastHit + attackSpeed)
         {
             pWeapon.TakeDamage(1);
-            PlayerKnockBack();
+
+            if(player.isGrounded)
+                PlayerKnockBack();
+
             lastHit = Time.time;
+
         }
     }
 
@@ -97,16 +102,19 @@ public class EnemyScript : MonoBehaviour
     #region Pathfinding
     void FindPlayer()
     {
-        if (transform.position.x < player.transform.position.x)
+        if (transform.position.x < player.centrePos.x)
             playerDir = 1;
-        if(transform.position.x > player.transform.position.x)
+        if(transform.position.x > player.centrePos.x)
             playerDir = -1;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, 1000000000f, layersToHit);
-        playerFound = (hit.transform.tag == player.transform.tag && disToPlayer <= detectRange);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.centrePos - (Vector2)transform.position, 1000000000f, layersToHit);
+        playerFound = (hit && hit.transform.tag == player.transform.tag && disToPlayer <= detectRange);
 
+        Debug.DrawRay(transform.position, player.centrePos - (Vector2)transform.position, Color.red);
+        Debug.Log(hit.transform.name);
+         
         if (playerFound)
-            playerLastPos = player.transform.position;
+            playerLastPos = player.centrePos;
     }
 
     void ChasePlayer()
@@ -122,10 +130,8 @@ public class EnemyScript : MonoBehaviour
     {
         if (disToPlayer > 1f && playerLastPos != v2null && Time.time > lastHit + attackSpeed)
         {
-            if(isGrounded)
-                transform.position = new Vector2(Vector2.MoveTowards(transform.position, playerLastPos, speed).x, transform.position.y);
-            else
-                transform.position = new Vector2(Vector2.MoveTowards(transform.position, playerLastPos, jumpSpeed).x, transform.position.y);
+            transform.position = new Vector2(Vector2.MoveTowards(transform.position, playerLastPos, speed).x, transform.position.y);
+            //transform.position = new Vector2(Vector2.MoveTowards(transform.position, playerLastPos, jumpSpeed).x, transform.position.y);
         }
     }
 
@@ -135,11 +141,28 @@ public class EnemyScript : MonoBehaviour
 
         right = Physics2D.Raycast(transform.position, transform.right, 1, layersToHit);
         left = Physics2D.Raycast(transform.position, -transform.right, 1, layersToHit);
-
+        rightDown = Physics2D.Raycast(new Vector2(transform.position.x + 1f, transform.position.y), -transform.up, 100, layersToHit);
+        leftDown = Physics2D.Raycast(new Vector2(transform.position.x - 1f, transform.position.y), -transform.up, 100, layersToHit);
+        
         if (isGrounded && ((right && right.transform.tag != player.transform.tag) || (left && left.transform.tag != player.transform.tag)))
         {
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
+            isJumping = true;
+        }
+
+        if (isGrounded && !isJumping && playerDir == -1f && leftDown.collider == null)
+        {
+            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isGrounded = false;
+            isJumping = true;
+        }
+
+        if (isGrounded && !isJumping && playerDir == 1f && rightDown.collider == null)
+        {
+            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isGrounded = false;
+            isJumping = true;
         }
     }
 
@@ -147,6 +170,7 @@ public class EnemyScript : MonoBehaviour
     {
         down = Physics2D.Raycast(feetPosition.position, Vector2.down, 0.05f, player.FloorLayermask);
         isGrounded = down.collider != null;
+        isJumping = !isGrounded;
     }
 
     #endregion

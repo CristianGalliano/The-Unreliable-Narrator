@@ -21,6 +21,8 @@ public class PlayerMovementController : MonoBehaviour
     public LayerMask FloorLayermask;
     private int jumpCount = 0;
 
+    public Vector2 centrePos;
+
     [Header("PlayerSprites")]
     public GameObject PlayerSide;
     public GameObject PlayerDown;
@@ -69,6 +71,8 @@ public class PlayerMovementController : MonoBehaviour
         } else {
             SetPlayerDownActive(true);
         }
+
+        centrePos = new Vector2(transform.position.x, transform.position.y + 1.5f);
     }
 
     private void jumpFunc()
