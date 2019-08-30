@@ -88,7 +88,7 @@ public class PlayerWeaponController : MonoBehaviour
         {
             health -= damage;
             currentHeart += damage;
-            Hearts[currentHeart].SetActive(false);
+            Hearts[currentHeart].GetComponent<Animator>().Play("FadeOutHeart");
         }
         else
         {
