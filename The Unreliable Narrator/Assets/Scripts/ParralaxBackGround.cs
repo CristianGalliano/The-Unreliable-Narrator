@@ -11,7 +11,7 @@ public class ParralaxBackGround : MonoBehaviour
     void Start()
     {
         StartPosition = transform.position.x;
-        ImageWidth = GetComponent<SpriteRenderer>().bounds.size.x;
+        ImageWidth = 40.95f;           
     }
 
     // Update is called once per frame
@@ -28,5 +28,10 @@ public class ParralaxBackGround : MonoBehaviour
         {
             StartPosition -= ImageWidth;
         }
+    }
+
+    private void Update()
+    {
+
     }
 }
