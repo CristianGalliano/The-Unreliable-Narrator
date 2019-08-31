@@ -19,6 +19,10 @@ public class InteractionScript : MonoBehaviour
 
     public GameObject leftFacing, DownFacing;
 
+    private bool canDisappear = false;
+
+    private Animator thisAnimator;
+
     private void Awake()
     {
         Controls = new MasterInputSystem();
@@ -38,7 +42,7 @@ public class InteractionScript : MonoBehaviour
 
     private void Start()
     {
-        
+        thisAnimator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -47,6 +51,21 @@ public class InteractionScript : MonoBehaviour
         {
             startLine = 0;
             endLine = 15;
+        }
+        else if (PlayerMovementController.PMC.playerGameState == 1)
+        {
+            startLine = 17;
+            endLine = 32;
+        }
+        else if (PlayerMovementController.PMC.playerGameState == 2)
+        {
+            startLine = 34;
+            endLine = 50;
+        }
+        else if (PlayerMovementController.PMC.playerGameState == 3)
+        {
+            startLine = 52;
+            endLine = 67;
         }
         if (requireButtonPress && interactionPressed && !TextBubbleManager.TBM.textBubbleActive && playerInRange && PlayerMovementController.PMC.isGrounded)
         {
@@ -78,12 +97,21 @@ public class InteractionScript : MonoBehaviour
             leftFacing.SetActive(true);
             DownFacing.SetActive(false);
             TextBubbleManager.TBM.EnableTextBox();
+            if (PlayerMovementController.PMC.playerGameState == 3)
+            {
+                canDisappear = true;
+            }
         }
         interactionPressed = false;
         if (!TextBubbleManager.TBM.textBubbleActive)
         {
+
             leftFacing.SetActive(false);
             DownFacing.SetActive(true);
+            if (canDisappear)
+            {
+                StartCoroutine(destroyWhenFinished());
+            }
         }
     }
 
@@ -143,5 +171,12 @@ public class InteractionScript : MonoBehaviour
             TextBubbleManager.TBM.Popup.SetActive(false);
             waitForPress = false;
         }
-    }  
+    }
+
+    private IEnumerator destroyWhenFinished()
+    {
+        thisAnimator.Play("DemonFadeAway");
+        yield return new WaitForSecondsRealtime(0.5f);
+        Destroy(gameObject);
+    }
 }
