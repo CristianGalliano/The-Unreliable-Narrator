@@ -43,6 +43,11 @@ public class InteractionScript : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerMovementController.PMC.playerGameState == 0)
+        {
+            startLine = 0;
+            endLine = 15;
+        }
         if (requireButtonPress && interactionPressed && !TextBubbleManager.TBM.textBubbleActive && playerInRange && PlayerMovementController.PMC.isGrounded)
         {
             TextBubbleManager.TBM.ReloadScript(thisText);
