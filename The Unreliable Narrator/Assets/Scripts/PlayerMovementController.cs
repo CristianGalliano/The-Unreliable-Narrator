@@ -20,6 +20,7 @@ public class PlayerMovementController : MonoBehaviour
     public Animator animator;
     public LayerMask FloorLayermask;
     private int jumpCount = 0;
+    public PlayerWeaponController thisPWC;
 
     public Vector2 centrePos;
 
@@ -68,7 +69,9 @@ public class PlayerMovementController : MonoBehaviour
         {
             movementFunc();
             canJump();
-        } else {
+        }
+        else if (!canMove && thisPWC.canAttack)
+        {
             SetPlayerDownActive(true);
         }
 
@@ -95,7 +98,7 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    private void SetPlayerDownActive(bool toggle) {
+    public void SetPlayerDownActive(bool toggle) {
         PlayerDown.SetActive(toggle);
         PlayerSide.SetActive(!toggle);
     }

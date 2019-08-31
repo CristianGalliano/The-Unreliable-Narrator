@@ -4821,17 +4821,17 @@ PrefabInstance:
     - target: {fileID: 1165589110435202762, guid: cb6510818ee47754ba93eea404638d4d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.3474731
+      value: 0.42261827
       objectReference: {fileID: 0}
     - target: {fileID: 1165589110435202762, guid: cb6510818ee47754ba93eea404638d4d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.93769
+      value: 0.9063079
       objectReference: {fileID: 0}
     - target: {fileID: 1165589110435202762, guid: cb6510818ee47754ba93eea404638d4d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 113.55801
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -374026454146725989, guid: cb6510818ee47754ba93eea404638d4d,
         type: 3}
@@ -4901,17 +4901,17 @@ PrefabInstance:
     - target: {fileID: -5260287965006285902, guid: cb6510818ee47754ba93eea404638d4d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.39398807
+      value: 0.42261827
       objectReference: {fileID: 0}
     - target: {fileID: -5260287965006285902, guid: cb6510818ee47754ba93eea404638d4d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.91911554
+      value: 0.9063079
       objectReference: {fileID: 0}
     - target: {fileID: -5260287965006285902, guid: cb6510818ee47754ba93eea404638d4d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -1.235
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8390751672346236419, guid: cb6510818ee47754ba93eea404638d4d,
         type: 3}
@@ -8711,6 +8711,7 @@ MonoBehaviour:
   FloorLayermask:
     serializedVersion: 2
     m_Bits: 512
+  thisPWC: {fileID: 1369794291}
   centrePos: {x: 0, y: 0}
   PlayerSide: {fileID: 800209166}
   PlayerDown: {fileID: 340050013}
@@ -8756,7 +8757,12 @@ MonoBehaviour:
   meleeWeaponHitList: []
   bulletPrefab: {fileID: 563964436279273396, guid: 4693fcfe697b8f64898209d3208173e3,
     type: 3}
+  canAttack: 1
   charge: 0
+  sideAnimator: {fileID: 800209167}
+  weapons:
+  - {fileID: 121513762}
+  - {fileID: 670480160}
 --- !u!1 &1385793323
 GameObject:
   m_ObjectHideFlags: 0
