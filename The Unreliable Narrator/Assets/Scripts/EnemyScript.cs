@@ -13,6 +13,13 @@ public class EnemyScript : MonoBehaviour
     private float jumpForce = 7.5f;
     private bool isGrounded = true;
     private bool isJumping = false;
+    public BoxCollider2D collider;
+
+    //Visuals
+    public GameObject SkeletonDown, SkeletonSide;
+    Vector3 originalScale;
+    public Animator DownAnimator, SideAnimator;
+    private bool Dead = false;
 
     //Raycast
     public LayerMask layersToHit;
@@ -25,6 +32,7 @@ public class EnemyScript : MonoBehaviour
     private PlayerWeaponController pWeapon;
     float disToPlayer;
     private bool playerFound;
+    private bool chasing = false;
     private int playerDir;
     private Vector2 playerLastPos;
     private Vector2 v2null = new Vector2(-12345, -12345);
@@ -32,7 +40,8 @@ public class EnemyScript : MonoBehaviour
     //Pathfinding - Attack
     private float knockBackForce = 100f;
     private float lastHit;
-    private float attackSpeed = 0.5f;
+    private float attackSpeed = 1.5f;
+    private float attackRange = 1.5f;
 
     public bool MoveType = true;
 
@@ -43,16 +52,22 @@ public class EnemyScript : MonoBehaviour
         player = PlayerMovementController.PMC;
         pWeapon = PlayerMovementController.PMC.gameObject.GetComponent<PlayerWeaponController>();
         playerLastPos = v2null;
+        originalScale = SkeletonSide.transform.localScale;
+
+        DownAnimator = SkeletonDown.GetComponent<Animator>();
+        SideAnimator = SkeletonSide.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        FindPlayer();
-        ChasePlayer();
-        AttackPlayer();
-
-        Debug.Log(disToPlayer);
+        if(!Dead)
+        {
+            FindPlayer();
+            ChasePlayer();
+            AttackPlayer();
+            SetVisuals();
+        }
 
         disToPlayer = Vector2.Distance(transform.position, player.centrePos);
     }
@@ -64,22 +79,41 @@ public class EnemyScript : MonoBehaviour
 
         if (HP <= 0)
         {
-            pWeapon.meleeWeaponHitList.Remove(this);
-            Destroy(gameObject);
+            StartCoroutine(Die());
         }
+    }
+
+    IEnumerator Die()
+    {
+        Dead = true;
+        SkeletonDown.SetActive(false);
+        SkeletonSide.SetActive(true);
+        pWeapon.meleeWeaponHitList.Remove(this);
+        SideAnimator.Play("SkeletonDeath");
+        yield return new WaitForSeconds(2f);
+        collider.enabled = false;
+        rigid.gravityScale = 0;
     }
 
     void AttackPlayer()
     {
         if(disToPlayer < 1.5f && Time.time > lastHit + attackSpeed)
         {
-            pWeapon.TakeDamage(1);
-
-            if(player.isGrounded)
-                PlayerKnockBack();
-
+            SideAnimator.Play("SkeletonAttack");
+            StartCoroutine(Attack());
             lastHit = Time.time;
+        }
+    }
 
+    IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(0.75f);
+
+        if(disToPlayer < attackRange)
+        {
+            pWeapon.TakeDamage(1);
+            if (player.isGrounded)
+                PlayerKnockBack();
         }
     }
 
@@ -99,6 +133,29 @@ public class EnemyScript : MonoBehaviour
             player.rb.AddForce(new Vector2(-knockBackForce, knockBackForce));
     }
 
+    void SetVisuals()
+    {
+        if(chasing)
+        {
+            SkeletonDown.SetActive(false);
+            SkeletonSide.SetActive(true);
+
+            if (playerDir == 1)
+            {
+                SkeletonSide.transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.x);
+            }
+            else if (playerDir == -1)
+            {
+                SkeletonSide.transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.x);
+            }
+        }
+        else if(!chasing)
+        {
+            SkeletonDown.SetActive(true);
+            SkeletonSide.SetActive(false);
+        }
+    }
+
     #region Pathfinding
     void FindPlayer()
     {
@@ -111,7 +168,6 @@ public class EnemyScript : MonoBehaviour
         playerFound = (hit && hit.transform.tag == player.transform.tag && disToPlayer <= detectRange);
 
         Debug.DrawRay(transform.position, player.centrePos - (Vector2)transform.position, Color.red);
-        Debug.Log(hit.transform.name);
          
         if (playerFound)
             playerLastPos = player.centrePos;
@@ -124,14 +180,27 @@ public class EnemyScript : MonoBehaviour
             Move();
             JumpCheck();
         }
+
+        chasing = playerLastPos != v2null && Vector2.Distance(transform.position, playerLastPos) >= 0.5f;
+
     }
 
     void Move()
     {
         if (disToPlayer > 1f && playerLastPos != v2null && Time.time > lastHit + attackSpeed)
         {
+            SideAnimator.Play("SkeletonWalking");
             transform.position = new Vector2(Vector2.MoveTowards(transform.position, playerLastPos, speed).x, transform.position.y);
             //transform.position = new Vector2(Vector2.MoveTowards(transform.position, playerLastPos, jumpSpeed).x, transform.position.y);
+        }
+    }
+
+    void Jump()
+    {
+        if(isGrounded)
+        {
+            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isGrounded = false;
         }
     }
 
@@ -146,31 +215,22 @@ public class EnemyScript : MonoBehaviour
         
         if (isGrounded && ((right && right.transform.tag != player.transform.tag) || (left && left.transform.tag != player.transform.tag)))
         {
-            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isGrounded = false;
-            isJumping = true;
+            Jump();
         }
-
-        if (isGrounded && !isJumping && playerDir == -1f && leftDown.collider == null)
+        else if (isGrounded && playerDir == -1f && leftDown.collider == null)
         {
-            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isGrounded = false;
-            isJumping = true;
+            Jump();
         }
-
-        if (isGrounded && !isJumping && playerDir == 1f && rightDown.collider == null)
+        else if (isGrounded && playerDir == 1f && rightDown.collider == null)
         {
-            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isGrounded = false;
-            isJumping = true;
+            Jump();
         }
     }
 
     void GroundedCheck()
     {
         down = Physics2D.Raycast(feetPosition.position, Vector2.down, 0.05f, player.FloorLayermask);
-        isGrounded = down.collider != null;
-        isJumping = !isGrounded;
+        isGrounded = rigid.velocity.y == 0;
     }
 
     #endregion
