@@ -19,6 +19,7 @@ public class PlayerWeaponController : MonoBehaviour
     public BoxCollider2D meleeWeapon;
     public List<EnemyScript> meleeWeaponHitList;
     public GameObject bulletPrefab;
+    public bool canAttack = true;
 
     private int weaponValue = 0;
     private bool isCharging;
@@ -31,6 +32,10 @@ public class PlayerWeaponController : MonoBehaviour
     //Ranged Weapon
     private float lastShot;
     private float rateOfFire = 0.05f;
+
+    public Animator sideAnimator;
+
+    public GameObject[] weapons;
 
     private void Awake()
     {
@@ -67,18 +72,34 @@ public class PlayerWeaponController : MonoBehaviour
         Debug.Log("Weapon " + weaponValue + " is being used!");
         BowCharge();
         //SetHitboxDir();
+        if (PlayerMovementController.PMC.canMove)
+        {
+            if (weaponValue == 0)
+            {
+                weapons[0].SetActive(true);
+                weapons[1].SetActive(true);
+            }
+            else
+            {
+                weapons[0].SetActive(false);
+                weapons[1].SetActive(false);
+            }
+        }
     }
 
     private void Attack(int Value)
     {
-        Debug.Log("Weapon " + weaponValue + " is being used!");
-        if (weaponValue == 0)
+        if (PlayerMovementController.PMC.canMove)
         {
-            MeleeOne();
-        }
-        else if (weaponValue == 1)
-        {
-            isCharging = true;
+            Debug.Log("Weapon " + weaponValue + " is being used!");
+            if (weaponValue == 0)
+            {
+                MeleeOne();
+            }
+            else if (weaponValue == 1)
+            {
+                isCharging = true;
+            }
         }
     }
 
@@ -106,26 +127,29 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void ToggleWeapon(int i)
     {
-        if (i == 0)
+        if (PlayerMovementController.PMC.canMove)
         {
-            if (weaponValue > 0)
+            if (i == 0)
             {
-                weaponValue--;
+                if (weaponValue > 0)
+                {
+                    weaponValue--;
+                }
+                else
+                {
+                    weaponValue = 1;
+                }
             }
-            else
+            if (i == 1)
             {
-                weaponValue = 1;
-            }
-        }
-        if (i == 1)
-        {
-            if (weaponValue < 1)
-            {
-                weaponValue++;
-            }
-            else
-            {
-                weaponValue = 0;
+                if (weaponValue < 1)
+                {
+                    weaponValue++;
+                }
+                else
+                {
+                    weaponValue = 0;
+                }
             }
         }
     }
@@ -140,9 +164,12 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void MeleeOne()
     {
-        foreach(EnemyScript enemy in meleeWeaponHitList)
+        if (canAttack)
         {
-            enemy.TakeDamage(10);
+            PlayerMovementController.PMC.canMove = false;
+            PlayerMovementController.PMC.SetPlayerDownActive(false);
+            canAttack = false;
+            StartCoroutine(meleeAttack());
         }
     }
 
@@ -169,5 +196,18 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (isCharging && charge < 100f)
             charge += 2f;
+    }
+
+    private IEnumerator meleeAttack()
+    {
+        sideAnimator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.75f);
+        foreach (EnemyScript enemy in meleeWeaponHitList)
+        {
+            enemy.TakeDamage(10);
+        }
+        yield return new WaitForSeconds(0.75f);
+        canAttack = true;
+        PlayerMovementController.PMC.canMove = true;
     }
 }
