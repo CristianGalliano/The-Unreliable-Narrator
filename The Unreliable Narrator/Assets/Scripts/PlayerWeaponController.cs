@@ -88,7 +88,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void Attack(int Value)
     {
-        if (PlayerMovementController.PMC.canMove)
+        if (PlayerMovementController.PMC.canMove && PlayerMovementController.PMC.isGrounded)
         {
             Debug.Log("Weapon " + weaponValue + " is being used!");
             if (weaponValue == 0)
