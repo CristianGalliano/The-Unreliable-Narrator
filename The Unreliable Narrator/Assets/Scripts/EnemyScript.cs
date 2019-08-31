@@ -48,7 +48,7 @@ public class EnemyScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {       
         rigid = GetComponent<Rigidbody2D>();
         player = PlayerMovementController.PMC;
         pWeapon = PlayerMovementController.PMC.gameObject.GetComponent<PlayerWeaponController>();

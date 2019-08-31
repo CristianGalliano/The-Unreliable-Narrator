@@ -40,6 +40,7 @@ public class BossScript : MonoBehaviour
     private float lastHit;
     private float attackSpeed = 1.5f;
     private float attackRange = 1.5f;
+    public BoxCollider2D[] poles;
 
     // Start is called before the first frame update
     void Start()
@@ -79,10 +80,14 @@ public class BossScript : MonoBehaviour
     {
         Dead = true;
         anims.Play("MonsterDeath");
+        foreach (BoxCollider2D pole in poles)
+        {
+            pole.enabled = false;
+        }
+        PlayerMovementController.PMC.playerGameState = 3;
         yield return new WaitForSeconds(2.5f);
         collider.enabled = false;
         rigid.gravityScale = 0;
-        PlayerMovementController.PMC.playerGameState = 3;
     }
 
     void AttackPlayer()
@@ -123,6 +128,18 @@ public class BossScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            playerInArena = true;
+            foreach (BoxCollider2D pole in poles)
+            {
+                pole.enabled = true;
+            }
+        }
+    }
+
     #region Pathfinding
     void FindPlayer()
     {
@@ -148,7 +165,7 @@ public class BossScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D hit)
     {
-        if (hit.transform.tag != "Floor")
+        if (hit.transform.tag != "Floor" && hit.transform.tag != "Enemy")
         {
             if (hit.transform.tag == "Player")
             {
