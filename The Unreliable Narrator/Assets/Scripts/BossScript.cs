@@ -82,6 +82,7 @@ public class BossScript : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         collider.enabled = false;
         rigid.gravityScale = 0;
+        PlayerMovementController.PMC.playerGameState = 3;
     }
 
     void AttackPlayer()

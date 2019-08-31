@@ -9,9 +9,10 @@ public class PlayerWeaponController : MonoBehaviour
     //References
     private MasterInputSystem Controls;
     private PlayerMovementController playerMovement;
+    public Transform spawnpoint;
 
     //Stats
-    public int health = 6;
+    public int health = 5;
     public GameObject[] Hearts;
     int currentHeart = -1;
 
@@ -33,6 +34,7 @@ public class PlayerWeaponController : MonoBehaviour
     //Ranged Weapon
     private float lastShot;
     private float rateOfFire = 0.05f;
+    public GameObject DeathScreen;
 
     public Animator sideAnimator;
 
@@ -63,7 +65,10 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (health == 0)
+        {
+            Death();
+        }
     }
 
     private void Attack()
@@ -82,18 +87,24 @@ public class PlayerWeaponController : MonoBehaviour
             currentHeart += 1;
             Hearts[currentHeart].GetComponent<Animator>().Play("FadeOutHeart");
         }
-        else
+    }
+
+    private void Reset()
+    {
+        health = 5;
+        foreach (GameObject heart in Hearts)
         {
-            //Death();
+            heart.SetActive(true);
+            heart.GetComponent<Animator>().Play("FadeInHeart");
+            currentHeart = -1;
         }
     }
 
     void Death()
     {
-        Camera.main.GetComponent<CameraFollowScript>().enabled = false;
-        Destroy(gameObject);
-
-        SceneManager.LoadScene("PlaySceneTopDown");
+        DeathScreen.SetActive(true);
+        Reset();
+        transform.position = spawnpoint.position;
     }
 
     private void SetHitboxDir()

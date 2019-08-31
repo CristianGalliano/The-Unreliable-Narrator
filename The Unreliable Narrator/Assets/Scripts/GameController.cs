@@ -4,40 +4,31 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public int health = 3;
-    public GameObject Player;
-    public GameObject Camera;
+    public static GameController GC;
 
-    public GameObject[] Hearts;
+    public GameObject playerPrefab;
+    public Transform spawnPosition;
 
-    int currentHeart = -1;
+    private void Awake()
+    {
+        if (GC == null)
+        {
+            GC = this;
+        }
+        else if (GC != this)
+        {
+            Destroy(this);
+        }
+    }
 
     void Start()
     {
-        Player = GameObject.FindWithTag("Player");
-        Camera = GameObject.Find("Main Camera");
+        spawnPlayer();
     }
 
-    void Update()
+    public void spawnPlayer()
     {
-        
-    }
-
-    
-    public void OnDamage(int damage)
-    {
-        if (health > 0)
-        {
-            health -= damage;
-            currentHeart += damage;
-            Hearts[currentHeart].SetActive(false);
-        }
-
-    }
-
-    void OnDeath()
-    {
-        Camera.GetComponent<CameraFollowScript>().enabled = false;
-        Destroy(Player.gameObject);
+        Instantiate(playerPrefab, spawnPosition.position, Quaternion.identity);
+        CameraFollowScript.CFS.enabled = true;
     }
 }
