@@ -5,12 +5,10 @@ using UnityEngine;
 public class KillVolume : MonoBehaviour
 {
     public int Damage = 1;
-    GameController controller;
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -23,7 +21,6 @@ public class KillVolume : MonoBehaviour
     {
         if (collision.tag == "Player" && !collision.isTrigger)
         {
-            Debug.Log("Doing " + Damage + " damage!");
             collision.GetComponent<PlayerWeaponController>().health = 0;
         }
     }
