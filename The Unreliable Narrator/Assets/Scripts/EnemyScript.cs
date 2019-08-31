@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     //Stats
-    public int HP = 100;
+    private int HP = 20;
 
     //Physics
     private float speed = 0.1f;
@@ -19,7 +19,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject SkeletonDown, SkeletonSide;
     Vector3 originalScale;
     public Animator DownAnimator, SideAnimator;
-    private bool Dead = false;
+    public bool Dead = false;
 
     //Raycast
     public LayerMask layersToHit;
@@ -74,6 +74,7 @@ public class EnemyScript : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("ur mom gey");
         HP -= damage;
         KnockBack();
 
@@ -88,7 +89,6 @@ public class EnemyScript : MonoBehaviour
         Dead = true;
         SkeletonDown.SetActive(false);
         SkeletonSide.SetActive(true);
-        pWeapon.meleeWeaponHitList.Remove(this);
         SideAnimator.Play("SkeletonDeath");
         yield return new WaitForSeconds(2f);
         collider.enabled = false;

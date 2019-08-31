@@ -10,9 +10,12 @@ public class HitBox : MonoBehaviour
     {
         if (hit.tag == "Enemy")
         {
+            EnemyScript temp = hit.GetComponent<EnemyScript>();
 
-            PWC.meleeWeaponHitList.Add(hit.GetComponent<EnemyScript>());
-            Debug.Log("added");
+            if(!temp.Dead && !PWC.meleeWeaponHitList.Contains(temp))
+            {
+                PWC.meleeWeaponHitList.Add(temp);
+            }
         }
     }
 
@@ -20,7 +23,12 @@ public class HitBox : MonoBehaviour
     {
         if (hit.tag == "Enemy")
         {
-            PWC.meleeWeaponHitList.Remove(hit.GetComponent<EnemyScript>());
+            EnemyScript temp = hit.GetComponent<EnemyScript>();
+
+            if (PWC.meleeWeaponHitList.Contains(temp))
+            {
+                PWC.meleeWeaponHitList.Remove(temp);
+            }
         }
     }
 }

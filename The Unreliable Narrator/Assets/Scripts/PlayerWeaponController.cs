@@ -40,7 +40,7 @@ public class PlayerWeaponController : MonoBehaviour
     private void Awake()
     {
         Controls = new MasterInputSystem();
-        
+
         Controls.Player.Attack.performed += Context => Attack(weaponValue);
         Controls.Player.Attack.canceled += Context => Shoot();
 
@@ -69,7 +69,6 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Weapon " + weaponValue + " is being used!");
         BowCharge();
         //SetHitboxDir();
         if (PlayerMovementController.PMC.canMove)
@@ -173,9 +172,22 @@ public class PlayerWeaponController : MonoBehaviour
         }
     }
 
+    private IEnumerator meleeAttack()
+    {
+        sideAnimator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.75f);
+        foreach (EnemyScript enemy in meleeWeaponHitList)
+        {
+            enemy.TakeDamage(10);
+        }
+        yield return new WaitForSeconds(0.75f);
+        canAttack = true;
+        PlayerMovementController.PMC.canMove = true;
+    }
+
     private void Shoot()
     {
-        if(charge >= 100f && Time.time > lastShot + rateOfFire)
+        if (charge >= 100f && Time.time > lastShot + rateOfFire)
         {
             GameObject Bullet = Instantiate(bulletPrefab, gameObject.transform.position, Quaternion.identity);
             Bullet.GetComponent<Rigidbody2D>().velocity = playerMovement.previousDirection * 25f;
@@ -197,17 +209,5 @@ public class PlayerWeaponController : MonoBehaviour
         if (isCharging && charge < 100f)
             charge += 2f;
     }
-
-    private IEnumerator meleeAttack()
-    {
-        sideAnimator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.75f);
-        foreach (EnemyScript enemy in meleeWeaponHitList)
-        {
-            enemy.TakeDamage(10);
-        }
-        yield return new WaitForSeconds(0.75f);
-        canAttack = true;
-        PlayerMovementController.PMC.canMove = true;
-    }
 }
+
