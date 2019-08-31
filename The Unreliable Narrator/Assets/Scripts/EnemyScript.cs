@@ -31,6 +31,7 @@ public class EnemyScript : MonoBehaviour
     private PlayerMovementController player;
     private PlayerWeaponController pWeapon;
     float disToPlayer;
+    float disToLastPos;
     private bool playerFound;
     private bool chasing = false;
     private int playerDir;
@@ -69,8 +70,7 @@ public class EnemyScript : MonoBehaviour
         }
 
         disToPlayer = Vector2.Distance(transform.position, player.centrePos);
-
-        Debug.Log(chasing);
+        disToLastPos = Vector2.Distance(transform.position, playerLastPos);
     }
 
     public void TakeDamage(int damage)
@@ -112,7 +112,7 @@ public class EnemyScript : MonoBehaviour
 
         if(disToPlayer < attackRange)
         {
-            pWeapon.TakeDamage(1);
+            pWeapon.TakeDamage();
             if (player.isGrounded)
                 PlayerKnockBack();
         }
@@ -176,13 +176,13 @@ public class EnemyScript : MonoBehaviour
 
     void ChasePlayer()
     {
-        if (Vector2.Distance(transform.position, playerLastPos) > 1f)
+        if (disToLastPos > 1f)
         {
             Move();
             JumpCheck();
         }
 
-        chasing = playerLastPos != v2null && Vector2.Distance(transform.position, playerLastPos) >= 1f;
+        chasing = playerLastPos != v2null && disToLastPos >= 1f;
 
     }
 

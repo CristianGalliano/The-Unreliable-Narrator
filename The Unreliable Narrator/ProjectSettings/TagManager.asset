@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PlayerProjectile
   - Enemy
+  - Boss
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Player
   - PlayerProjectile
   - Enemy
-  - 
+  - Boss
   - 
   - 
   - 

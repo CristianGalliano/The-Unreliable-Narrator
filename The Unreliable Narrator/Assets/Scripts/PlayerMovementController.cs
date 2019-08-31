@@ -13,7 +13,7 @@ public class PlayerMovementController : MonoBehaviour
     public float direction;
     private float speed = 10f;
     private float jumpSpeed = 5f;
-    private float jumpForce = 7.5f;
+    private float jumpForce = 8.5f;
     public bool isGrounded = true, canDoubleJump = true;
     public Rigidbody2D rb;
     public Transform feetPosition;

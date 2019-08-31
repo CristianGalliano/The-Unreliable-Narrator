@@ -18,6 +18,7 @@ public class PlayerWeaponController : MonoBehaviour
     //Combat
     public BoxCollider2D meleeWeapon;
     public List<EnemyScript> meleeWeaponHitList;
+    public BossScript boss;
     public GameObject bulletPrefab;
     public bool canAttack = true;
 
@@ -73,12 +74,12 @@ public class PlayerWeaponController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage()
     {
         if (health > 0)
         {
-            health -= damage;
-            currentHeart += damage;
+            health -= 1;
+            currentHeart += 1;
             Hearts[currentHeart].GetComponent<Animator>().Play("FadeOutHeart");
         }
         else
@@ -122,6 +123,9 @@ public class PlayerWeaponController : MonoBehaviour
         {
             enemy.TakeDamage(10);
         }
+        if (boss)
+            boss.TakeDamage(10);
+
         yield return new WaitForSeconds(0.75f);
         canAttack = true;
         PlayerMovementController.PMC.canMove = true;
