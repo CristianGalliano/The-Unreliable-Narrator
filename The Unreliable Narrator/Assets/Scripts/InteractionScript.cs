@@ -17,6 +17,8 @@ public class InteractionScript : MonoBehaviour
     private bool interactionPressed = false;
     private bool playerInRange = false;
 
+    public GameObject[] tiledLevels;
+
     public GameObject leftFacing, DownFacing;
 
     private bool canDisappear = false;
@@ -56,6 +58,7 @@ public class InteractionScript : MonoBehaviour
         {
             startLine = 17;
             endLine = 32;
+
         }
         else if (PlayerMovementController.PMC.playerGameState == 2)
         {
@@ -69,6 +72,24 @@ public class InteractionScript : MonoBehaviour
         }
         if (requireButtonPress && interactionPressed && !TextBubbleManager.TBM.textBubbleActive && playerInRange && PlayerMovementController.PMC.isGrounded)
         {
+            //if(PlayerMovementController.PMC.playerGameState == 0)
+            //{
+            //    tiledLevels[0].SetActive(true);
+            //}
+            //else if (PlayerMovementController.PMC.playerGameState == 1)
+            //{
+            //    tiledLevels[0].SetActive(false);
+            //    tiledLevels[1].SetActive(true);
+            //}
+            //else if (PlayerMovementController.PMC.playerGameState == 2)
+            //{
+            //    tiledLevels[1].SetActive(false);
+            //    tiledLevels[2].SetActive(true);
+            //}
+            //else if (PlayerMovementController.PMC.playerGameState == 3)
+            //{
+            //    tiledLevels[2].SetActive(false);
+            //}
             TextBubbleManager.TBM.ReloadScript(thisText);
             TextBubbleManager.TBM.currentLine = startLine;
             TextBubbleManager.TBM.lastLine = endLine;

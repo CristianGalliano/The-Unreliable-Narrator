@@ -17,6 +17,15 @@ public class HitBox : MonoBehaviour
                 PWC.meleeWeaponHitList.Add(temp);
             }
         }
+        else if (hit.tag == "Boss")
+        {
+            BossScript temp = hit.GetComponent<BossScript>();
+
+            if (!temp.Dead && !PWC.boss)
+            {
+                PWC.boss = temp;
+            }
+        }
     }
 
     void OnTriggerExit2D(Collider2D hit)
@@ -28,6 +37,15 @@ public class HitBox : MonoBehaviour
             if (PWC.meleeWeaponHitList.Contains(temp))
             {
                 PWC.meleeWeaponHitList.Remove(temp);
+            }
+        }
+        else if (hit.tag == "Boss")
+        {
+            BossScript temp = hit.GetComponent<BossScript>();
+
+            if (PWC.boss)
+            {
+                PWC.boss = null;
             }
         }
     }

@@ -24,7 +24,7 @@ public class KillVolume : MonoBehaviour
         if (collision.tag == "Player" && !collision.isTrigger)
         {
             Debug.Log("Doing " + Damage + " damage!");
-            controller.OnDamage(Damage);
+            collision.GetComponent<PlayerWeaponController>().health = 0;
         }
     }
 }

@@ -135,7 +135,6 @@ public class TextBubbleManager : MonoBehaviour
         {
             TextBubbleText.text += Text[letter];
             letter +=1;
-            Debug.Log(Text[letter]);
             yield return new WaitForSecondsRealtime(textSpeed);
         }
         TextBubbleText.text = Text;
