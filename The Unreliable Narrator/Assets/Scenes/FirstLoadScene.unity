@@ -377,24 +377,19 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: edd93a034b672b84db93a9e5ec1e7e49, type: 3}
-    m_FontSize: 75
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
-    m_MaxSize: 75
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae purus
-    elit. In tincidunt justo sit amet fermentum ullamcorper. Praesent pulvinar magna
-    neque. Aenean ut lacus non dui consectetur semper. Quisque vel elit nec urna rhoncus
-    rutrum. Mauris in pulvinar leo, in maximus mi. Nam maximus tincidunt consequat.
-    Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-    mus. Aliquam suscipit viverra blandit. Sed auctor, dui at sagittis semper, ipsum
-    eros maximus augue, ac tempor arcu justo ut dui. '
+  m_Text: You feel the pull of the darkness. You wonder how long you have been tumbling
+    through the abyss.
 --- !u!222 &719769268
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -541,22 +536,19 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: edd93a034b672b84db93a9e5ec1e7e49, type: 3}
-    m_FontSize: 75
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 7
-    m_MaxSize: 75
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-    cubilia Curae; Donec a lectus at arcu dapibus interdum non in nisi. Curabitur
-    condimentum ex ultrices, accumsan lacus at, facilisis justo. Proin dignissim tincidunt
-    lorem vitae tristique. Sed id gravida diam. Vivamus vestibulum efficitur faucibus.
-    Mauris vulputate dui condimentum nulla dapibus, et laoreet augue feugiat.
+  m_Text: No... You most definitely had a heart originally. Someone must have taken
+    it, and now there is only emptiness. You definitely want it back...
 --- !u!222 &1537976803
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -624,21 +616,19 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: edd93a034b672b84db93a9e5ec1e7e49, type: 3}
-    m_FontSize: 75
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 7
-    m_MaxSize: 75
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Suspendisse potenti. Curabitur bibendum placerat posuere. In nec justo consectetur,
-    volutpat ipsum id, malesuada dui. Etiam gravida ligula est, quis fringilla sem
-    ultricies id. Nulla facilisi. In ac sagittis ante. Integer non sagittis risus.
-    Etiam tempus orci orci, ut feugiat sem aliquet et. Donec at elementum nibh.
+  m_Text: Something is missing, there is a gaping hole in your chest where your heart
+    should be. Has it always been like this?
 --- !u!222 &1617552014
 CanvasRenderer:
   m_ObjectHideFlags: 0
