@@ -67,7 +67,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void Attack()
     {
-        if (PlayerMovementController.PMC.canMove)
+        if (PlayerMovementController.PMC.canMove && PlayerMovementController.PMC.isGrounded)
         {
             MeleeOne();
         }
