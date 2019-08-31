@@ -1801,12 +1801,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 150
-  collider: {fileID: 0}
+  collider: {fileID: 281579249}
   anims: {fileID: 1129043198}
   Dead: 0
   layersToHit:
     serializedVersion: 2
     m_Bits: 7991
+  playerInArena: 0
 --- !u!50 &281579248
 Rigidbody2D:
   serializedVersion: 4

@@ -11,7 +11,7 @@ public class BossScript : MonoBehaviour
     private float speed = 10f;
     private float detectRange = 10f;
     private float knockBackForce = 250f;
-    public BoxCollider2D collider;
+    public CapsuleCollider2D collider;
 
     //Visuals
     Vector3 originalScale;
@@ -31,6 +31,7 @@ public class BossScript : MonoBehaviour
     private bool charging = false;
     private bool canMove = true;
     private bool isMoving = false;
+    public bool playerInArena = false;
     private int playerDir;
     private Vector2 playerLastPos = new Vector2(-12345, -12345);
     private Vector2 v2null = new Vector2(-12345, -12345);
@@ -53,9 +54,12 @@ public class BossScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FindPlayer();
-        ChasePlayer();
-        SetVisuals();
+        if(!Dead && playerInArena)
+        {
+            FindPlayer();
+            ChasePlayer();
+            SetVisuals();
+        }
 
         disToPlayer = Vector2.Distance(transform.position, player.centrePos);
         disToLastPos = Vector2.Distance(transform.position, playerLastPos);
@@ -74,8 +78,8 @@ public class BossScript : MonoBehaviour
     IEnumerator Die()
     {
         Dead = true;
-        //Die Animation
-        yield return new WaitForSeconds(2f);
+        anims.Play("MonsterDeath");
+        yield return new WaitForSeconds(2.5f);
         collider.enabled = false;
         rigid.gravityScale = 0;
     }
