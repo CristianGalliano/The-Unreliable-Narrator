@@ -58,6 +58,8 @@ public class PlayerMovementController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Physics2D.IgnoreLayerCollision(12, 12);
+        Physics2D.IgnoreLayerCollision(12, 13);
         PlayerSide.SetActive(false);
         PlayerDown.SetActive(true);
     }

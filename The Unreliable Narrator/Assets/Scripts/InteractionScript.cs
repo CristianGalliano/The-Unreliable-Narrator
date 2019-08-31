@@ -72,24 +72,24 @@ public class InteractionScript : MonoBehaviour
         }
         if (requireButtonPress && interactionPressed && !TextBubbleManager.TBM.textBubbleActive && playerInRange && PlayerMovementController.PMC.isGrounded)
         {
-            //if(PlayerMovementController.PMC.playerGameState == 0)
-            //{
-            //    tiledLevels[0].SetActive(true);
-            //}
-            //else if (PlayerMovementController.PMC.playerGameState == 1)
-            //{
-            //    tiledLevels[0].SetActive(false);
-            //    tiledLevels[1].SetActive(true);
-            //}
-            //else if (PlayerMovementController.PMC.playerGameState == 2)
-            //{
-            //    tiledLevels[1].SetActive(false);
-            //    tiledLevels[2].SetActive(true);
-            //}
-            //else if (PlayerMovementController.PMC.playerGameState == 3)
-            //{
-            //    tiledLevels[2].SetActive(false);
-            //}
+            if(PlayerMovementController.PMC.playerGameState == 0)
+            {
+                tiledLevels[0].SetActive(true);
+            }
+            else if (PlayerMovementController.PMC.playerGameState == 1)
+            {
+                tiledLevels[0].SetActive(false);
+                tiledLevels[1].SetActive(true);
+            }
+            else if (PlayerMovementController.PMC.playerGameState == 2)
+            {
+                tiledLevels[1].SetActive(false);
+                tiledLevels[2].SetActive(true);
+            }
+            else if (PlayerMovementController.PMC.playerGameState == 3)
+            {
+                tiledLevels[2].SetActive(false);
+            }
             TextBubbleManager.TBM.ReloadScript(thisText);
             TextBubbleManager.TBM.currentLine = startLine;
             TextBubbleManager.TBM.lastLine = endLine;
