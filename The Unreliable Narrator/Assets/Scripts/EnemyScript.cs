@@ -34,7 +34,7 @@ public class EnemyScript : MonoBehaviour
     private bool playerFound;
     private bool chasing = false;
     private int playerDir;
-    private Vector2 playerLastPos;
+    private Vector2 playerLastPos = new Vector2(-12345, -12345);
     private Vector2 v2null = new Vector2(-12345, -12345);
 
     //Pathfinding - Attack
@@ -51,7 +51,6 @@ public class EnemyScript : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         player = PlayerMovementController.PMC;
         pWeapon = PlayerMovementController.PMC.gameObject.GetComponent<PlayerWeaponController>();
-        playerLastPos = v2null;
         originalScale = SkeletonSide.transform.localScale;
 
         DownAnimator = SkeletonDown.GetComponent<Animator>();
@@ -70,6 +69,8 @@ public class EnemyScript : MonoBehaviour
         }
 
         disToPlayer = Vector2.Distance(transform.position, player.centrePos);
+
+        Debug.Log(chasing);
     }
 
     public void TakeDamage(int damage)
@@ -181,7 +182,7 @@ public class EnemyScript : MonoBehaviour
             JumpCheck();
         }
 
-        chasing = playerLastPos != v2null && Vector2.Distance(transform.position, playerLastPos) >= 0.5f;
+        chasing = playerLastPos != v2null && Vector2.Distance(transform.position, playerLastPos) >= 1f;
 
     }
 

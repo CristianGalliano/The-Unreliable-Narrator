@@ -34,38 +34,6 @@ public class MasterInputSystem : IInputActionCollection
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""ChangeWeapon1"",
-                    ""type"": ""Button"",
-                    ""id"": ""9f0f8545-1d1f-4a91-9c68-daf68b2afe5b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ChangeWeapon2"",
-                    ""type"": ""Button"",
-                    ""id"": ""9716d0ae-4e5a-4754-a773-95a816cf182a"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ChangeWeaponNext"",
-                    ""type"": ""Button"",
-                    ""id"": ""44850351-b76b-4cb8-a289-d21aaae33991"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ChangeWeaponPrevious"",
-                    ""type"": ""Button"",
-                    ""id"": ""ee8fc7b1-308a-46a2-ae2b-ee216f6d4f96"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""384addf2-72ad-4c7e-b619-6dcde9cc581d"",
@@ -181,28 +149,6 @@ public class MasterInputSystem : IInputActionCollection
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f440bf60-4a29-49e1-b560-a5fdb8363f8a"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard and Mouse"",
-                    ""action"": ""ChangeWeapon1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5533abd5-e183-49d0-82b0-e90e1efdd02f"",
-                    ""path"": ""<Gamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Controller"",
-                    ""action"": ""ChangeWeapon1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""096bb5c2-252b-42b5-a148-2fa66c244a0e"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -242,72 +188,6 @@ public class MasterInputSystem : IInputActionCollection
                     ""processors"": """",
                     ""groups"": "";Controller"",
                     ""action"": ""ShowTooltips"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""023fd3df-0b24-443f-83c0-273501b50dac"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard and Mouse"",
-                    ""action"": ""ChangeWeapon2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""801ff918-d7bc-4632-b90c-02520dd860a4"",
-                    ""path"": ""<Gamepad>/dpad/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Controller"",
-                    ""action"": ""ChangeWeapon2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cd44dd97-800f-433b-a86f-c3ce44821128"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard and Mouse"",
-                    ""action"": ""ChangeWeaponNext"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a8264285-0bfb-4cbd-8ca9-52406dc30cfc"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Controller"",
-                    ""action"": ""ChangeWeaponNext"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""99a95565-ac7b-425a-8bdd-48798d951ea5"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard and Mouse"",
-                    ""action"": ""ChangeWeaponPrevious"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f3664b53-a0c5-44a9-8b9f-225c018caeda"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Controller"",
-                    ""action"": ""ChangeWeaponPrevious"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -372,10 +252,6 @@ public class MasterInputSystem : IInputActionCollection
         m_Player = asset.GetActionMap("Player");
         m_Player_Movement = m_Player.GetAction("Movement");
         m_Player_Attack = m_Player.GetAction("Attack");
-        m_Player_ChangeWeapon1 = m_Player.GetAction("ChangeWeapon1");
-        m_Player_ChangeWeapon2 = m_Player.GetAction("ChangeWeapon2");
-        m_Player_ChangeWeaponNext = m_Player.GetAction("ChangeWeaponNext");
-        m_Player_ChangeWeaponPrevious = m_Player.GetAction("ChangeWeaponPrevious");
         m_Player_Interact = m_Player.GetAction("Interact");
         m_Player_ShowTooltips = m_Player.GetAction("ShowTooltips");
         m_Player_Jump = m_Player.GetAction("Jump");
@@ -430,10 +306,6 @@ public class MasterInputSystem : IInputActionCollection
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_ChangeWeapon1;
-    private readonly InputAction m_Player_ChangeWeapon2;
-    private readonly InputAction m_Player_ChangeWeaponNext;
-    private readonly InputAction m_Player_ChangeWeaponPrevious;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_ShowTooltips;
     private readonly InputAction m_Player_Jump;
@@ -443,10 +315,6 @@ public class MasterInputSystem : IInputActionCollection
         public PlayerActions(MasterInputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
-        public InputAction @ChangeWeapon1 => m_Wrapper.m_Player_ChangeWeapon1;
-        public InputAction @ChangeWeapon2 => m_Wrapper.m_Player_ChangeWeapon2;
-        public InputAction @ChangeWeaponNext => m_Wrapper.m_Player_ChangeWeaponNext;
-        public InputAction @ChangeWeaponPrevious => m_Wrapper.m_Player_ChangeWeaponPrevious;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @ShowTooltips => m_Wrapper.m_Player_ShowTooltips;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
@@ -465,18 +333,6 @@ public class MasterInputSystem : IInputActionCollection
                 Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
-                ChangeWeapon1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeapon1;
-                ChangeWeapon1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeapon1;
-                ChangeWeapon1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeapon1;
-                ChangeWeapon2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeapon2;
-                ChangeWeapon2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeapon2;
-                ChangeWeapon2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeapon2;
-                ChangeWeaponNext.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeaponNext;
-                ChangeWeaponNext.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeaponNext;
-                ChangeWeaponNext.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeaponNext;
-                ChangeWeaponPrevious.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeaponPrevious;
-                ChangeWeaponPrevious.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeaponPrevious;
-                ChangeWeaponPrevious.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeWeaponPrevious;
                 Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
@@ -496,18 +352,6 @@ public class MasterInputSystem : IInputActionCollection
                 Attack.started += instance.OnAttack;
                 Attack.performed += instance.OnAttack;
                 Attack.canceled += instance.OnAttack;
-                ChangeWeapon1.started += instance.OnChangeWeapon1;
-                ChangeWeapon1.performed += instance.OnChangeWeapon1;
-                ChangeWeapon1.canceled += instance.OnChangeWeapon1;
-                ChangeWeapon2.started += instance.OnChangeWeapon2;
-                ChangeWeapon2.performed += instance.OnChangeWeapon2;
-                ChangeWeapon2.canceled += instance.OnChangeWeapon2;
-                ChangeWeaponNext.started += instance.OnChangeWeaponNext;
-                ChangeWeaponNext.performed += instance.OnChangeWeaponNext;
-                ChangeWeaponNext.canceled += instance.OnChangeWeaponNext;
-                ChangeWeaponPrevious.started += instance.OnChangeWeaponPrevious;
-                ChangeWeaponPrevious.performed += instance.OnChangeWeaponPrevious;
-                ChangeWeaponPrevious.canceled += instance.OnChangeWeaponPrevious;
                 Interact.started += instance.OnInteract;
                 Interact.performed += instance.OnInteract;
                 Interact.canceled += instance.OnInteract;
@@ -543,10 +387,6 @@ public class MasterInputSystem : IInputActionCollection
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnChangeWeapon1(InputAction.CallbackContext context);
-        void OnChangeWeapon2(InputAction.CallbackContext context);
-        void OnChangeWeaponNext(InputAction.CallbackContext context);
-        void OnChangeWeaponPrevious(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnShowTooltips(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);

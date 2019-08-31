@@ -22,38 +22,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "ChangeWeapon1",
-                    "type": "Button",
-                    "id": "9f0f8545-1d1f-4a91-9c68-daf68b2afe5b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ChangeWeapon2",
-                    "type": "Button",
-                    "id": "9716d0ae-4e5a-4754-a773-95a816cf182a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ChangeWeaponNext",
-                    "type": "Button",
-                    "id": "44850351-b76b-4cb8-a289-d21aaae33991",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ChangeWeaponPrevious",
-                    "type": "Button",
-                    "id": "ee8fc7b1-308a-46a2-ae2b-ee216f6d4f96",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "384addf2-72ad-4c7e-b619-6dcde9cc581d",
@@ -169,28 +137,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f440bf60-4a29-49e1-b560-a5fdb8363f8a",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard and Mouse",
-                    "action": "ChangeWeapon1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5533abd5-e183-49d0-82b0-e90e1efdd02f",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "ChangeWeapon1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "096bb5c2-252b-42b5-a148-2fa66c244a0e",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -230,72 +176,6 @@
                     "processors": "",
                     "groups": ";Controller",
                     "action": "ShowTooltips",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "023fd3df-0b24-443f-83c0-273501b50dac",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard and Mouse",
-                    "action": "ChangeWeapon2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "801ff918-d7bc-4632-b90c-02520dd860a4",
-                    "path": "<Gamepad>/dpad/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "ChangeWeapon2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cd44dd97-800f-433b-a86f-c3ce44821128",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard and Mouse",
-                    "action": "ChangeWeaponNext",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a8264285-0bfb-4cbd-8ca9-52406dc30cfc",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "ChangeWeaponNext",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "99a95565-ac7b-425a-8bdd-48798d951ea5",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard and Mouse",
-                    "action": "ChangeWeaponPrevious",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f3664b53-a0c5-44a9-8b9f-225c018caeda",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "ChangeWeaponPrevious",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

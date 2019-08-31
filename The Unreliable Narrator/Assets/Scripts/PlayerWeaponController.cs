@@ -40,14 +40,7 @@ public class PlayerWeaponController : MonoBehaviour
     private void Awake()
     {
         Controls = new MasterInputSystem();
-
-        Controls.Player.Attack.performed += Context => Attack(weaponValue);
-        Controls.Player.Attack.canceled += Context => Shoot();
-
-        Controls.Player.ChangeWeapon1.performed += Context => weaponValue = 0;
-        Controls.Player.ChangeWeapon2.performed += Context => weaponValue = 1;
-        Controls.Player.ChangeWeaponNext.performed += Context => ToggleWeapon(1);
-        Controls.Player.ChangeWeaponPrevious.performed += Context => ToggleWeapon(0);
+        Controls.Player.Attack.performed += Context => Attack();
     }
 
     // Start is called before the first frame update
@@ -69,36 +62,14 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        BowCharge();
-        //SetHitboxDir();
-        if (PlayerMovementController.PMC.canMove)
-        {
-            if (weaponValue == 0)
-            {
-                weapons[0].SetActive(true);
-                weapons[1].SetActive(true);
-            }
-            else
-            {
-                weapons[0].SetActive(false);
-                weapons[1].SetActive(false);
-            }
-        }
+
     }
 
-    private void Attack(int Value)
+    private void Attack()
     {
         if (PlayerMovementController.PMC.canMove)
         {
-            Debug.Log("Weapon " + weaponValue + " is being used!");
-            if (weaponValue == 0)
-            {
-                MeleeOne();
-            }
-            else if (weaponValue == 1)
-            {
-                isCharging = true;
-            }
+            MeleeOne();
         }
     }
 
@@ -122,35 +93,6 @@ public class PlayerWeaponController : MonoBehaviour
         Destroy(gameObject);
 
         SceneManager.LoadScene("PlaySceneTopDown");
-    }
-
-    private void ToggleWeapon(int i)
-    {
-        if (PlayerMovementController.PMC.canMove)
-        {
-            if (i == 0)
-            {
-                if (weaponValue > 0)
-                {
-                    weaponValue--;
-                }
-                else
-                {
-                    weaponValue = 1;
-                }
-            }
-            if (i == 1)
-            {
-                if (weaponValue < 1)
-                {
-                    weaponValue++;
-                }
-                else
-                {
-                    weaponValue = 0;
-                }
-            }
-        }
     }
 
     private void SetHitboxDir()
@@ -183,31 +125,6 @@ public class PlayerWeaponController : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         canAttack = true;
         PlayerMovementController.PMC.canMove = true;
-    }
-
-    private void Shoot()
-    {
-        if (charge >= 100f && Time.time > lastShot + rateOfFire)
-        {
-            GameObject Bullet = Instantiate(bulletPrefab, gameObject.transform.position, Quaternion.identity);
-            Bullet.GetComponent<Rigidbody2D>().velocity = playerMovement.previousDirection * 25f;
-
-            float rot_z = Mathf.Atan2(playerMovement.previousDirection.y, playerMovement.previousDirection.x) * Mathf.Rad2Deg;
-            Bullet.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-            Destroy(Bullet, 2.5f);
-
-            lastShot = Time.time;
-        }
-
-        isCharging = false;
-        charge = 0;
-
-    }
-
-    void BowCharge()
-    {
-        if (isCharging && charge < 100f)
-            charge += 2f;
     }
 }
 
