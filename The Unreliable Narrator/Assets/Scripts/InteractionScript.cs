@@ -25,6 +25,12 @@ public class InteractionScript : MonoBehaviour
 
     private Animator thisAnimator;
 
+    public GameObject[] skellySprites;
+    public GameObject[] deadFriendsSprites;
+
+    public GameObject[] housesSprites;
+    public GameObject[] bloodiedSprites;
+
     private void Awake()
     {
         Controls = new MasterInputSystem();
@@ -197,6 +203,22 @@ public class InteractionScript : MonoBehaviour
     private IEnumerator destroyWhenFinished()
     {
         thisAnimator.Play("DemonFadeAway");
+        foreach (GameObject skelly in skellySprites)
+        {
+            skelly.SetActive(false);
+        }
+        foreach (GameObject friend in deadFriendsSprites)
+        {
+            friend.SetActive(true);
+        }
+        foreach (GameObject house in housesSprites)
+        {
+            house.SetActive(false);
+        }
+        foreach (GameObject house in bloodiedSprites)
+        {
+            house.SetActive(true);
+        }
         yield return new WaitForSecondsRealtime(0.5f);
         Destroy(gameObject);
     }
