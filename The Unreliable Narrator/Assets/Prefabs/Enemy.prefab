@@ -204,6 +204,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 100
+  collider: {fileID: 1508955258451484326}
+  SkeletonDown: {fileID: 7600755093524918935}
+  SkeletonSide: {fileID: 4674864325589755783}
+  DownAnimator: {fileID: 0}
+  SideAnimator: {fileID: 0}
   layersToHit:
     serializedVersion: 2
     m_Bits: 3895
@@ -1203,7 +1208,7 @@ PrefabInstance:
     - target: {fileID: -7323749499396416231, guid: 79bddab546c765e4891847053ce72ef0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8025618983757202539, guid: 79bddab546c765e4891847053ce72ef0,
         type: 3}
